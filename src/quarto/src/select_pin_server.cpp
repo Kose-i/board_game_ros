@@ -10,7 +10,7 @@ bool add(quarto::bridge::Request &req,
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "select_pin_server");
+  ros::init(argc, argv, "quarto_select_pin_server");
   ros::NodeHandle n;
 
   ros::ServiceServer service = n.advertiseService("select_pin", add);

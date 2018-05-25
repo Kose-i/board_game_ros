@@ -8,13 +8,15 @@
 
 int global_pin = 0;
 int before_pin = global_pin;
+int width = 0;
+int height = 0;
 void callback_mouse(int event, int x, int y, int flags, void*)
 {
   before_pin = global_pin;
   switch(event){
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
-      global_pin = y / 3 + x % 3;
+      global_pin = (y / (height/3))*3 + x / (width/ 3);
       break;
   }
 }
@@ -23,16 +25,20 @@ const std::string pin_box[] = {"first", "second", "3", "4","5","6","7","8","9","
 
 int main(int argc, char** argv){
 
-  ros::init(argc, argv, "check_your_select");
+  ros::init(argc, argv, "quarto_select_pin_client");
 
   ros::NodeHandle nh;
 
-  cv::VideoCapture cap(0);
+  /*cv::VideoCapture cap(0);
   if(!cap.isOpened()) {
     std::cout << "error\n";
   }
+  */
   cv::Mat img_src;
-  cap >> img_src;
+  //cap >> img_src;
+  img_src = cv::imread("../img/test.gif");
+  width = img_src.size().width;
+  height = img_src.size().height;
   std::cout << "START\n";
 
   cv::namedWindow("img_src");
