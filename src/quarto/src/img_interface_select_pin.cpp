@@ -12,16 +12,15 @@ int width = 0;
 int height = 0;
 void callback_mouse(int event, int x, int y, int flags, void*)
 {
-  before_pin = global_pin;
   switch(event){
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
-      global_pin = (y / (height/3))*3 + x / (width/ 3);
+      global_pin = (y / ((height + 3)/3))*3 + x / (width/ 3);
       break;
   }
 }
 
-const std::string pin_box[] = {"first", "second", "3", "4","5","6","7","8","9","0"};
+const std::string pin_box[] = {"0", "1", "2", "3","4","5","6","7","8","9"};
 
 int main(int argc, char** argv){
 
@@ -34,9 +33,10 @@ int main(int argc, char** argv){
     std::cout << "error\n";
   }
   */
-  cv::Mat img_src;
+
+  cv::Mat img_src = cv::imread("/home/tamura-kosei/works/opencv/tutorial/test.jpg");
   //cap >> img_src;
-  img_src = cv::imread("../img/test.gif");
+  //img_src = cv::imread("../img/test.gif");
   width = img_src.size().width;
   height = img_src.size().height;
   std::cout << "START\n";
@@ -53,10 +53,14 @@ int main(int argc, char** argv){
 
     if(global_pin != before_pin){
       ros::ServiceClient client = nh.serviceClient<quarto::bridge>("select_pin");
-      srv.request.str_pin = pin_box[global_pin];
+      if(0 <= global_pin && global_pin <= 9){
+        srv.request.str_pin = pin_box[global_pin];
+      }
+      before_pin = global_pin;
     }
 
     if(client.call(srv)) {
+      ROS_INFO("s");
       ROS_INFO("%s", srv.request.str_pin.c_str());
     }/*else {
       ROS_INFO("ERROR\n");
