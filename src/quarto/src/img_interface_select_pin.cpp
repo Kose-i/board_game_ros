@@ -3,6 +3,7 @@
 //#include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 #include "quarto/bridge.h"
 
@@ -10,6 +11,7 @@ int global_pin = 0;
 int before_pin = global_pin;
 int width = 0;
 int height = 0;
+
 void callback_mouse(int event, int x, int y, int flags, void*)
 {
   switch(event){
@@ -34,13 +36,25 @@ int main(int argc, char** argv){
   }
   */
 
-  cv::Mat img_src = cv::imread("/home/tamura-kosei/works/opencv/tutorial/test.jpg");
+  //cv::Mat img_src = cv::imread("/home/tamura-kosei/works/opencv/tutorial/test.jpg", CV_LOAD_IMAGE_COLOR);
+  //img_src.release();
   //cap >> img_src;
-  //img_src = cv::imread("../img/test.gif");
+  cv::Mat img_src = cv::imread("../img/test.jpg", CV_LOAD_IMAGE_COLOR);
+  cv::waitKey(30);
+
+  img_src.release();
   width = img_src.size().width;
   height = img_src.size().height;
   std::cout << "START\n";
+  ROS_INFO("%d %d", width, height);
 
+  if(img_src.empty()){
+    ROS_INFO("can't open picture");
+    return -1;
+  }
+  return 0;
+#if 0
+/*
   cv::namedWindow("img_src");
   cv::setMouseCallback("img_src", &callback_mouse);
   cv::imshow("img_src", img_src);
@@ -69,5 +83,8 @@ int main(int argc, char** argv){
 
     ros::spin();
   }
+  */
+#endif
+    ros::spin();
   return 0;
 }

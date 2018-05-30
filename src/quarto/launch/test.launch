@@ -1,4 +1,4 @@
 <launch>
   <node pkg="quarto" type="quarto_node_client" name="quarto_client"/>
-  <node pkg="quarto" type="quarto_node_server" name="quarto_node_server"/>
+  <node pkg="quarto" type="quarto_node_server" name="quarto_server"/>
 </launch>
