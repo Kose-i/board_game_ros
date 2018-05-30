@@ -5,6 +5,8 @@
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
+#include <opencv2/imgcodecs.hpp>
+
 #include "quarto/bridge.h"
 
 int global_pin = 0;
@@ -39,7 +41,8 @@ int main(int argc, char** argv){
   //cv::Mat img_src = cv::imread("/home/tamura-kosei/works/opencv/tutorial/test.jpg", CV_LOAD_IMAGE_COLOR);
   //img_src.release();
   //cap >> img_src;
-  cv::Mat img_src = cv::imread("../img/test.jpg", CV_LOAD_IMAGE_COLOR);
+  //cv::Mat img_src = cv::imread("../img/test.jpg", CV_LOAD_IMAGE_COLOR);
+  cv::Mat img_src = cv::imread("../img/test.jpg", cv::IMREAD_COLOR);
   cv::waitKey(30);
 
   img_src.release();
