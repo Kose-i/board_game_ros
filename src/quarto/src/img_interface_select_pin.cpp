@@ -1,11 +1,14 @@
 #include <iostream>
 #include <ros/ros.h>
-//#include <opencv2/opencv.hpp>
+
+#include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-
 #include <opencv2/imgcodecs.hpp>
+
+#include <cv_bridge/cv_bridge.h>
+#include <image_transport/image_transport.h>
 
 #include "quarto/bridge.h"
 
@@ -32,23 +35,20 @@ int main(int argc, char** argv){
 
   ros::NodeHandle nh;
 
-  /*cv::VideoCapture cap(0);
+  cv::VideoCapture cap(0);
   if(!cap.isOpened()) {
     std::cout << "error\n";
   }
-  */
 
-  //cv::Mat img_src = cv::imread("/home/tamura-kosei/works/opencv/tutorial/test.jpg", CV_LOAD_IMAGE_COLOR);
-  //img_src.release();
+  //cv::Mat img_src;
   //cap >> img_src;
-  //cv::Mat img_src = cv::imread("../img/test.jpg", CV_LOAD_IMAGE_COLOR);
   cv::Mat img_src = cv::imread("../img/test.jpg", cv::IMREAD_COLOR);
-  cv::waitKey(30);
-
   img_src.release();
+  cv::waitKey(100);
+
   width = img_src.size().width;
   height = img_src.size().height;
-  std::cout << "START\n";
+  ROS_INFO("START");
   ROS_INFO("%d %d", width, height);
 
   if(img_src.empty()){
