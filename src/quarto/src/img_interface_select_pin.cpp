@@ -40,11 +40,7 @@ int main(int argc, char** argv){
     std::cout << "error\n";
   }
 
-  //cv::Mat img_src;
-  //cap >> img_src;
-  cv::Mat img_src = cv::imread("../img/test.jpg", cv::IMREAD_COLOR);
-  img_src.release();
-  cv::waitKey(100);
+  cv::Mat img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/test.jpg", cv::IMREAD_COLOR);
 
   width = img_src.size().width;
   height = img_src.size().height;
@@ -56,8 +52,6 @@ int main(int argc, char** argv){
     return -1;
   }
   return 0;
-#if 0
-/*
   cv::namedWindow("img_src");
   cv::setMouseCallback("img_src", &callback_mouse);
   cv::imshow("img_src", img_src);
@@ -79,14 +73,14 @@ int main(int argc, char** argv){
     if(client.call(srv)) {
       ROS_INFO("s");
       ROS_INFO("%s", srv.request.str_pin.c_str());
-    }/*else {
+    }else {
       ROS_INFO("ERROR\n");
       return -1;
-    }*/
+    }
 
     ros::spin();
   }
-  */
+#if 0
 #endif
     ros::spin();
   return 0;

@@ -1,4 +1,5 @@
 <launch>
   <!--node pkg="quarto" type="quarto_node_client" name="quarto_client"/-->
-  <node pkg="quarto" type="quarto_select_pin_client" name="quarto_client" output="screen"/>
+  <node pkg="quarto" type="quarto_select_pin_client" name="quarto_client" output="screen">
+  </node>
 </launch>
