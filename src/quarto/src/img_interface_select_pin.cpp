@@ -1,14 +1,14 @@
 #include <iostream>
 #include <ros/ros.h>
 
+#include <thread>
+#include <chrono>
+
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
-
-#include <cv_bridge/cv_bridge.h>
-#include <image_transport/image_transport.h>
 
 #include "quarto/bridge.h"
 
@@ -45,7 +45,7 @@ int main(int argc, char** argv){
 
   width = img_src.size().width;
   height = img_src.size().height;
-  ROS_INFO("START");
+  ROS_INFO("START %s","select_pin" );
   ROS_INFO("%d %d", width, height);
 
   if(img_src.empty()){
@@ -78,8 +78,9 @@ int main(int argc, char** argv){
       if(0 <= global_pin && global_pin <= 9){
         srv.request.str_pin = pin_box[global_pin];
         ROS_INFO("Push to server from selectPin client");
+        client.call(srv);
       }
-      before_pin = global_pin;
+      /*
 
       if(client.call(srv)) {
         ROS_INFO("s");
@@ -88,14 +89,15 @@ int main(int argc, char** argv){
         ROS_INFO("ERROR\n");
         return -1;
       }
+      */
     }
 
 
-    ros::spin();
+    //ros::spin();
+    std::this_thread::sleep_for(std::chrono::seconds(5));
     r.sleep();
   }
-#if 0
-#endif
-    ros::spin();
+
+  ros::spin();
   return 0;
 }

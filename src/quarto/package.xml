@@ -4,10 +4,7 @@
   <version>0.0.0</version>
   <description>The quarto package</description>
 
-  <!-- One maintainer tag required, multiple allowed, one person per tag -->
-  <!-- Example:  -->
-  <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="tamura-kosei@todo.todo">tamura-kosei</maintainer>
+  <maintainer email="tamura-kosei@mail.kyutech.jp">Kose-i</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
@@ -52,6 +49,13 @@
   <build_depend>roscpp</build_depend>
   <build_export_depend>roscpp</build_export_depend>
   <exec_depend>roscpp</exec_depend>
+  <!--build_depend>message_generation</build_depend>
+  <run_depend>message_runtime</run_depend-->
+
+  <!--depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>opencv2</depend-->
+
 
 
   <!-- The export tag contains other, unspecified, tags -->
