@@ -19,6 +19,7 @@ int height = 0;
 
 void callback_mouse(int event, int x, int y, int flags, void*)
 {
+  before_pin = global_pin;
   switch(event){
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
@@ -51,7 +52,7 @@ int main(int argc, char** argv){
     ROS_INFO("can't open picture");
     return -1;
   }
-  return 0;
+
   cv::namedWindow("img_src");
   cv::setMouseCallback("img_src", &callback_mouse);
   cv::imshow("img_src", img_src);
@@ -59,26 +60,39 @@ int main(int argc, char** argv){
   quarto::bridge srv;
   srv.request.str_pin = pin_box[global_pin];
   ros::ServiceClient client = nh.serviceClient<quarto::bridge>("select_pin");
+  /*
+  while(cv::waitKey(1) != 'q') {
+    if(global_pin != before_pin && 0 <= global_pin && global_pin <= 9) {
+      ROS_INFO("%d" , global_pin);
+    }
+  }
+  */
+
+  ros::Rate r(1);
+
+  //ros::ServiceClient client = nh.serviceClient<quarto::bridge>("select_pin");
 
   while(cv::waitKey(1) != 'q'){
 
     if(global_pin != before_pin){
-      ros::ServiceClient client = nh.serviceClient<quarto::bridge>("select_pin");
       if(0 <= global_pin && global_pin <= 9){
         srv.request.str_pin = pin_box[global_pin];
+        ROS_INFO("Push to server from selectPin client");
       }
       before_pin = global_pin;
+
+      if(client.call(srv)) {
+        ROS_INFO("s");
+        ROS_INFO("%s", srv.request.str_pin.c_str());
+      }else {
+        ROS_INFO("ERROR\n");
+        return -1;
+      }
     }
 
-    if(client.call(srv)) {
-      ROS_INFO("s");
-      ROS_INFO("%s", srv.request.str_pin.c_str());
-    }else {
-      ROS_INFO("ERROR\n");
-      return -1;
-    }
 
     ros::spin();
+    r.sleep();
   }
 #if 0
 #endif
