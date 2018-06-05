@@ -58,7 +58,7 @@ int main(int argc, char** argv){
   cv::imshow("img_src", img_src);
 
   quarto::bridge srv;
-  srv.request.str_pin = pin_box[global_pin];
+  srv.request.str_pin = '0';// = pin_box[global_pin];
   ros::ServiceClient client = nh.serviceClient<quarto::bridge>("select_pin");
   /*
   while(cv::waitKey(1) != 'q') {
@@ -68,7 +68,7 @@ int main(int argc, char** argv){
   }
   */
 
-  ros::Rate r(1);
+  //ros::Rate r(1);
 
   //ros::ServiceClient client = nh.serviceClient<quarto::bridge>("select_pin");
 
@@ -94,8 +94,8 @@ int main(int argc, char** argv){
 
 
     //ros::spin();
-    std::this_thread::sleep_for(std::chrono::seconds(5));
-    r.sleep();
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    //r.sleep();
   }
 
   ros::spin();
