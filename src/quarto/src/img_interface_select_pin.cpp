@@ -57,7 +57,7 @@ void paste_mat_img(cv::Mat src, cv::Mat dst, int x, int y, int copy_width, int c
 }
 */
 // 画像を画像に貼り付ける関数
-void paste_mat_img(cv::Mat src, cv::Mat dst, int x, int y, int resize_width, int resize_height) {
+void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const int& resize_width, const int& resize_height) {
   std::cout << "paste\n";
 	cv::Mat resized_img;
 	cv::resize(src, resized_img, cv::Size(resize_width, resize_height));
@@ -69,10 +69,14 @@ void paste_mat_img(cv::Mat src, cv::Mat dst, int x, int y, int resize_width, int
 	int v = (y >= 0) ? 0 : std::min(-y, resized_img.rows - 1);
 	int px = std::max(x, 0);
 	int py = std::max(y, 0);
+    std::cout << x << ' ' << y << '\n';
+    std::cout << w << ' ' << h << ' ' << u << ' ' << v << ' ' << px << ' ' << py << '\n';
 
 	cv::Mat roi_dst = dst(cv::Rect(px, py, w, h));
+
 	//cv::Mat roi_dst = dst(cv::Rect(x_start, y_start, resize_width, resize_height));
 	cv::Mat roi_resized = resized_img(cv::Rect(u, v, w, h));
+
 	//cv::Mat roi_resized = resized_img(cv::Rect(- x_start, - y_start, resize_width, resize_height));
 	roi_resized.copyTo(roi_dst);
 }
@@ -100,7 +104,7 @@ int main(int argc, char** argv){
     std::cout << "error\n";
   }
 
-  cv::Mat img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/temp.png", cv::IMREAD_COLOR);
+  cv::Mat img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/test.jpg", cv::IMREAD_COLOR);
   width = img_src.size().width;
   height = img_src.size().height;
   for (int i {};i < 3;++i) {
@@ -111,32 +115,33 @@ int main(int argc, char** argv){
       vec[i + j].height = height / 3;
     }
   }
-/*
-  const cv::Mat one_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/one.png");
-  paste_mat_img(one_img_src, img_src, 0, 0, width/3, height/ 3);
-  const cv::Mat two_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/two.png");
-  paste_mat_img(two_img_src, img_src, width/3 , 0, width/3 , height/ 3);
-  const cv::Mat three_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/three.png");
-  paste_mat_img(three_img_src, img_src, 2*width/3, 0, width/3, height/3);
+  //const cv::Mat one_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/one.png");
+  //paste_mat_img(one_img_src, img_src, 0, 0, width/3, height/ 3);
+  //const cv::Mat two_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/two.png");
+  //paste_mat_img(two_img_src, img_src, width/3 , 0, width/3 , height/ 3);
+  //const cv::Mat three_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/three.png");
+  //paste_mat_img(three_img_src, img_src, 2*width/3, 0, width/3, height/3);
 
-  const cv::Mat four_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/four.png");
-  paste_mat_img(four_img_src, img_src, 0, height/3, width/3, height/3);
-  const cv::Mat five_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/five.jpg");
-  paste_mat_img(five_img_src, img_src, width/3,height/3,width/3, height/ 3);
-  const cv::Mat six_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/six.jpg");
-  paste_mat_img(six_img_src, img_src, 2*width/3, height/3, width/3, height/ 3);
-  
-  const cv::Mat seven_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/seven.png");
-  paste_mat_img(seven_img_src, img_src, 0, 2*height/3, width/3, height/3);
-  const cv::Mat eight_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/eight.png");
-  paste_mat_img(eight_img_src, img_src, width/3, 2*height/3, width/3, height/ 3);
-  const cv::Mat nine_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/nine.png");
-  paste_mat_img(nine_img_src, img_src, 2*width/3,2*height/3,  width/3, height/3);
+  //const cv::Mat four_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/four.png");
+  //paste_mat_img(four_img_src, img_src, 0, height/3, width/3, height/3);
+  //const cv::Mat five_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/five.jpg");
+  //paste_mat_img(five_img_src, img_src, width/3,height/3,width/3, height/ 3);
+  //const cv::Mat six_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/six.jpg");
+  //paste_mat_img(six_img_src, img_src, 2*width/3, height/3, width/3, height/ 3);
+  //
+  //const cv::Mat seven_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/seven.png");
+  //paste_mat_img(seven_img_src, img_src, 0, 2*height/3, width/3, height/3);
+  //const cv::Mat eight_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/eight.png");
+  //paste_mat_img(eight_img_src, img_src, width/3, 2*height/3, width/3, height/ 3);
+  //const cv::Mat nine_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/nine.png");
+  //paste_mat_img(nine_img_src, img_src, 2*width/3,2*height/3,  width/3, height/3);
 
-  cv::imwrite("/home/tamura-kosei/works/board_game_ros/src/quarto/img/temp.png", img_src);
-*/
-  cv::Mat image_blank(640, 480, CV_16U);
-  cv::imshow("img_blank", image_blank);
+  const cv::Mat image_blank = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png");
+
+  //cv::Mat image_blank = cv::Mat::zeros(640, 480, CV_16U);
+  //paste_mat_img(image_blank, img_src, 0, 0, width/3, height/ 3);
+  //cv::imwrite("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png", image_blank);
+
   ROS_INFO("START %s","select_pin" );
   ROS_INFO("%d %d", width, height);
 
@@ -147,7 +152,6 @@ int main(int argc, char** argv){
 
   cv::namedWindow("img_src");
   cv::setMouseCallback("img_src", &callback_mouse);
-  cv::imshow("img_src", img_src);
 
   quarto::bridge srv;
   srv.request.str_pin = '0';// = pin_box[global_pin];
@@ -155,18 +159,20 @@ int main(int argc, char** argv){
 
   while(cv::waitKey(1) != 'q'){
 
+  cv::imshow("img_src", img_src);
     if(global_pin != before_pin){
+      std::cout << global_pin << '\n';
       if(0 <= global_pin && global_pin < 9 && isexist[global_pin] == true){
-        if (global_pin == 0)paste_mat_img(image_blank, img_src, 0, 0, width/3, height/ 3);
+        //if (global_pin == 0)paste_mat_img(image_blank, img_src, 0, 0, width/3, height/ 3);
         switch(global_pin) {
           default:
             ROS_INFO("aDD SOME");
             break;
           case 0:
-            paste_mat_img(img_src, img_src, 0, 0, width/3, height/ 3);
+            paste_mat_img(image_blank, img_src, 0, 0, width/3, height/ 3);
             break;
           case 1:
-            paste_mat_img(img_src, img_src, width/3 , 0, width/3 , height/ 3);
+            paste_mat_img(image_blank, img_src, width/3 , 0, width/3 , height/ 3);
             break;
           case 2:
             paste_mat_img(image_blank, img_src, 2*width/3, 0, width/3, height/3);
@@ -187,14 +193,13 @@ int main(int argc, char** argv){
             paste_mat_img(image_blank, img_src, width/3, 2*height/3, width/3, height/ 3);
             break;
           case 8:
-            paste_mat_img(image_blank, img_src, width/3, 2*height/3, width/3, height/ 3);
+            paste_mat_img(image_blank, img_src, 2*width/3, 2*height/3, width/3, height/ 3);
             break;
-          case 9:
-            paste_mat_img(image_blank, img_src, 2*width/3,2*height/3,  width/3, height/3);
-            break;
+          //case 9:
+          //  paste_mat_img(image_blank, img_src, 2*width/3,2*height/3,  width/3, height/3);
+          //  break;
         }
         srv.request.str_pin = pin_box[global_pin];
-        ROS_INFO("PUSH REQUEST");
         //paste_mat_img(image_blank, img_src, &vec[global_pin]);
 
         ROS_INFO("CHECK");
