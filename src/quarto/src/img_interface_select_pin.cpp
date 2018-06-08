@@ -38,7 +38,7 @@ std::vector<struct pos> vec(9);
 
 void callback_mouse(int event, int x, int y, int flags, void*)
 {
-  before_pin = global_pin;
+  //before_pin = global_pin;
   switch(event){
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
@@ -58,7 +58,7 @@ void paste_mat_img(cv::Mat src, cv::Mat dst, int x, int y, int copy_width, int c
 */
 // 画像を画像に貼り付ける関数
 void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const int& resize_width, const int& resize_height) {
-  std::cout << "paste\n";
+
 	cv::Mat resized_img;
 	cv::resize(src, resized_img, cv::Size(resize_width, resize_height));
 
@@ -69,15 +69,11 @@ void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const i
 	int v = (y >= 0) ? 0 : std::min(-y, resized_img.rows - 1);
 	int px = std::max(x, 0);
 	int py = std::max(y, 0);
-    std::cout << x << ' ' << y << '\n';
-    std::cout << w << ' ' << h << ' ' << u << ' ' << v << ' ' << px << ' ' << py << '\n';
+    //std::cout << x << ' ' << y << '\n';
+    //std::cout << w << ' ' << h << ' ' << u << ' ' << v << ' ' << px << ' ' << py << '\n';
 
 	cv::Mat roi_dst = dst(cv::Rect(px, py, w, h));
-
-	//cv::Mat roi_dst = dst(cv::Rect(x_start, y_start, resize_width, resize_height));
 	cv::Mat roi_resized = resized_img(cv::Rect(u, v, w, h));
-
-	//cv::Mat roi_resized = resized_img(cv::Rect(- x_start, - y_start, resize_width, resize_height));
 	roi_resized.copyTo(roi_dst);
 }
 /*
@@ -101,18 +97,19 @@ int main(int argc, char** argv){
 
   cv::VideoCapture cap(0);
   if(!cap.isOpened()) {
-    std::cout << "error\n";
+    ROS_INFO("Camera can't open");
+    return -1;
   }
 
-  cv::Mat img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/test.jpg", cv::IMREAD_COLOR);
+  cv::Mat img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/temp.png", cv::IMREAD_COLOR);
   width = img_src.size().width;
   height = img_src.size().height;
   for (int i {};i < 3;++i) {
     for (int j {}; j < 3;++j) {
-      vec[i + j].x = (width* j) / 3;
-      vec[i + j].y = (height*i) / 3;
-      vec[i + j].width =  width/3;
-      vec[i + j].height = height / 3;
+      vec[i*3 + j].x = (width* j) / 3;
+      vec[i*3 + j].y = (height*i) / 3;
+      vec[i*3 + j].width =  width/3;
+      vec[i*3 + j].height = height / 3;
     }
   }
   //const cv::Mat one_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/one.png");
@@ -159,64 +156,21 @@ int main(int argc, char** argv){
 
   while(cv::waitKey(1) != 'q'){
 
-  cv::imshow("img_src", img_src);
+    cv::imshow("img_src", img_src);
     if(global_pin != before_pin){
-      std::cout << global_pin << '\n';
       if(0 <= global_pin && global_pin < 9 && isexist[global_pin] == true){
-        //if (global_pin == 0)paste_mat_img(image_blank, img_src, 0, 0, width/3, height/ 3);
-        switch(global_pin) {
-          default:
-            ROS_INFO("aDD SOME");
-            break;
-          case 0:
-            paste_mat_img(image_blank, img_src, 0, 0, width/3, height/ 3);
-            break;
-          case 1:
-            paste_mat_img(image_blank, img_src, width/3 , 0, width/3 , height/ 3);
-            break;
-          case 2:
-            paste_mat_img(image_blank, img_src, 2*width/3, 0, width/3, height/3);
-            break;
-          case 3:
-            paste_mat_img(image_blank, img_src, 0, height/3, width/3, height/3);
-            break;
-          case 4:
-            paste_mat_img(image_blank, img_src, width/3,height/3,width/3, height/ 3);
-            break;
-          case 5:
-            paste_mat_img(image_blank, img_src, 2*width/3, height/3, width/3, height/ 3);
-            break;
-          case 6:
-            paste_mat_img(image_blank, img_src, 0, 2*height/3, width/3, height/3);
-            break;
-          case 7:
-            paste_mat_img(image_blank, img_src, width/3, 2*height/3, width/3, height/ 3);
-            break;
-          case 8:
-            paste_mat_img(image_blank, img_src, 2*width/3, 2*height/3, width/3, height/ 3);
-            break;
-          //case 9:
-          //  paste_mat_img(image_blank, img_src, 2*width/3,2*height/3,  width/3, height/3);
-          //  break;
-        }
         srv.request.str_pin = pin_box[global_pin];
-        //paste_mat_img(image_blank, img_src, &vec[global_pin]);
-
-        ROS_INFO("CHECK");
 
         client.call(srv);
-        isexist.reset(global_pin);
+        if(srv.response.str_answer == "ng") {
+          ROS_INFO("CHECK NG WORD");
+          continue;
+        } else if (srv.response.str_answer == "ok") {
+          before_pin = global_pin;
+          paste_mat_img(image_blank, img_src, &vec[global_pin]);
+          isexist.reset(global_pin);
+        }
       }
-      /*
-
-      if(client.call(srv)) {
-        ROS_INFO("s");
-        ROS_INFO("%s", srv.request.str_pin.c_str());
-      }else {
-        ROS_INFO("ERROR\n");
-        return -1;
-      }
-      */
     }
 
 
