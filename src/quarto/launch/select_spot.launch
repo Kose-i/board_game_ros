@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="quarto" type="quarto_select_topic" name="quarto_select_place" output="screen"/>
+</launch>

@@ -40,6 +40,10 @@ int main(int argc, char **argv)
   ros::NodeHandle n;
 
   cv::Mat zero_img = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/five.jpg", cv::IMREAD_COLOR);
+  if (zero_img.empty()){
+    ROS_INFO("SELECT SERVER ERROR");
+    return -1;
+  }
   cv::namedWindow("quarto_selectPIN_img_window");
   cv::setMouseCallback("quarto_selectPIN_img_window", &callback_mouse);
   cv::imshow("quarto_selectPIN_img_window", zero_img);
