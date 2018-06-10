@@ -18,6 +18,10 @@ add_service_files(
   bridge.srv
 )
 
+add_message_files(
+  FILES
+  string_msgs.msg
+)
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES

@@ -1,5 +1,4 @@
 #include <ros/ros.h>
-#include <std_msgs/String.h>
 
 #include <thread>
 #include <chrono>
@@ -10,6 +9,8 @@
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
+
+#include "string_msgs.h"
 
 int width = 0;
 int height = 0;
