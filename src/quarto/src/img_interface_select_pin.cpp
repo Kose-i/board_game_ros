@@ -166,13 +166,13 @@ int main(int argc, char** argv){
           ROS_INFO("CHECK NG WORD");
           continue;
         } else if (srv.response.str_answer == "ok") {
+          ROS_INFO("CHECK OK WORD");
           before_pin = global_pin;
           paste_mat_img(image_blank, img_src, &vec[global_pin]);
           isexist.reset(global_pin);
         }
       }
     }
-
 
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
   }
