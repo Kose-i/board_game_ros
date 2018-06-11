@@ -10,8 +10,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 
-//#include "string_msgs.h"
-#include "std_msgs/String.h"
+#include "quarto/string_msgs.h"
 
 int width = 0;
 int height = 0;
