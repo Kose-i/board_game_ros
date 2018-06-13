@@ -1,3 +1,4 @@
 <launch>
-  <node pkg="quarto" type="quarto_select_topic" name="quarto_select_place" output="screen"/>
+  <node pkg="quarto" type="quarto_select_pin_server" name="quarto_server" output="screen">
+  </node>
 </launch>

@@ -36,8 +36,8 @@ int main(int argc, char **argv)
 {
   //test
   ans = true;
-  //ros::init(argc, argv, "quarto_select_pin_server");
-  //ros::NodeHandle n;
+  ros::init(argc, argv, "quarto_select_pin_server");
+  ros::NodeHandle n;
 
   cv::Mat zero_img = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/five.jpg", cv::IMREAD_COLOR);
   if (zero_img.empty()){
@@ -49,7 +49,7 @@ int main(int argc, char **argv)
   cv::setMouseCallback("quarto_selectPIN_img_window", &callback_mouse);
   ROS_INFO("Ready to select pin.");
 
-  //ros::ServiceServer service = n.advertiseService("select_pin", set_pin);
+  ros::ServiceServer service = n.advertiseService("select_pin", set_pin);
   /*while(ans == false) {
     cv::imshow("quarto_selectPIN_img_window", zero_img);
   }*/

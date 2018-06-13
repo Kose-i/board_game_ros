@@ -165,6 +165,7 @@ int main(int argc, char** argv){
         srv.request.str_pin = pin_box[global_pin];
 
         client.call(srv);
+        ROS_INFO("THROW CLIENT");
         if(srv.response.str_answer == "ng") {
           ROS_INFO("CHECK NG WORD");
           continue;
