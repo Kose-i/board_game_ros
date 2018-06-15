@@ -68,6 +68,7 @@ void callback_mouse(int event, int x, int y, int flags, void*)
   switch(event){
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
+      ROS_INFO("touch");
       ans = true;
     break;
   }
