@@ -57,19 +57,21 @@ const std::string pin_box[] = {"first", "second", "third", "fourth","fifth","six
 bool set_pin(quarto::bridge::Request &req,
          quarto::bridge::Response &res)
 {
-  if(is_check())res.str_answer = "ok";
-  else res.str_answer = "ng";
+  //if(ans)res.str_answer = "ok";
+  //else res.str_answer = "ng";
+  res.str_answer = "ng";
+  ROS_INFO("throw from server");
   ans = false;
   return true;
 }
 
-void callback_mouse(int event, int x, int y, int flags, void*)
+void callback_mouse_select(int event, int x, int y, int flags, void*)
 {
   switch(event){
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
       ROS_INFO("touch");
-      ans = true;
+      ans = false;
     break;
   }
 }
@@ -86,13 +88,15 @@ int main(int argc, char **argv)
     return -1;
   }
   cv::namedWindow("quarto_selectPIN_img_window");
-  cv::setMouseCallback("quarto_selectPIN_img_window", &callback_mouse);
+  cv::setMouseCallback("quarto_selectPIN_img_window", &callback_mouse_select);
 
   ROS_INFO("Ready to select pin.");
 
-  ros::ServiceServer service = nh.advertiseService("select_pin", set_pin);
+  //ros::ServiceServer service = nh.advertiseService("select_pin", set_pin);
   while(cv::waitKey(1) !=  'q') {
+    ros::ServiceServer service = nh.advertiseService("select_pin", set_pin);
     cv::imshow("quarto_selectPIN_img_window", zero_img);
+    //ros::spinOnce();
   }
 
   ros::spin();

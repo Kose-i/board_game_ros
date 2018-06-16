@@ -28,14 +28,6 @@ struct pos{
 
 std::vector<struct pos> vec(9);
 
-/*void check_isexist()
-{
-  for (int i {};i < 8;++i) {
-    std::cout << ((isexist[i] == true)?1:0);
-  }
-  std::cout << ' ';
-}*/
-
 void callback_mouse(int event, int x, int y, int flags, void*)
 {
   //before_pin = global_pin;
@@ -159,13 +151,14 @@ int main(int argc, char** argv){
   while(cv::waitKey(1) != 'q'){
 
     cv::imshow("img_src", img_src);
-    if(global_pin != before_pin || check > 30){
+    if(global_pin != before_pin && check > 100){
       check = 0;
       if(0 <= global_pin && global_pin < 9 && isexist[global_pin] == true){
         srv.request.str_pin = pin_box[global_pin];
 
         client.call(srv);
         ROS_INFO("THROW CLIENT");
+        //std::this_thread::sleep_for(std::chrono::seconds(1));
         if(srv.response.str_answer == "ng") {
           ROS_INFO("CHECK NG WORD");
           continue;
@@ -178,7 +171,7 @@ int main(int argc, char** argv){
       }
     }
 
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
     ++check;
   }
   ros::spin();
