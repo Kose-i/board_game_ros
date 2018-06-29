@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(quarto)
+set(CMAKE_CXX_STANDARD 11)
 
 find_package(catkin REQUIRED COMPONENTS
   roscpp
@@ -22,6 +23,7 @@ add_message_files(
   FILES
   string_msgs.msg
 )
+
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
