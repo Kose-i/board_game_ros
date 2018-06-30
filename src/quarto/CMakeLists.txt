@@ -40,6 +40,7 @@ include_directories(
 add_executable(${PROJECT_NAME}_select_pin_client src/img_interface_select_pin.cpp)
 add_executable(${PROJECT_NAME}_select_pin_server src/select_pin_server.cpp)
 add_executable(${PROJECT_NAME}_select_spot src/topic_select_spot.cpp)
+add_executable(${PROJECT_NAME}_making_img src/making_img.cpp)
 
 target_link_libraries(${PROJECT_NAME}_select_pin_client
   ${catkin_LIBRARIES}
@@ -50,6 +51,10 @@ target_link_libraries(${PROJECT_NAME}_select_pin_server
   ${OpenCV_LIBRARIES}
 )
 target_link_libraries(${PROJECT_NAME}_select_spot
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+)
+target_link_libraries(${PROJECT_NAME}_making_img
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES}
 )
