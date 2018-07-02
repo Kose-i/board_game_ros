@@ -33,7 +33,7 @@ int main(int argc, char** argv){
   std::vector<Plot_data> pack_data(9);
   for (int i {};i < 7;++i) {
     pack_data[i].output_c = '1' + i;
-    pack_data[i].left_up = cv::Point(target_img.cols / SIZE * get_x(i), target_img.rows / SIZE * get_y(i));
+    pack_data[i].left_up = cv::Point(100*(i%3 + 1), 100*(i/3 + 1));
     pack_data[i].right_down = cv::Point();
     pack_data[i].color = cv::Scalar(255, 255, 255);//white color
   }
