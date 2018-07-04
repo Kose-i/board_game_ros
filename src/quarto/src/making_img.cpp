@@ -48,5 +48,6 @@ int main(int argc, char** argv){
   while(cv::waitKey(1) != 'q') {
     cv::imshow("target", target_img);
   }
+  cv::imwrite("/home/tamura-kosei/works/board_game_ros/src/quarto/img/temp.png", target_img);
   //cv::putText(target_img, )
 }

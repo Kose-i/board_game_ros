@@ -105,30 +105,10 @@ int main(int argc, char** argv){
     }
   }
   std::this_thread::sleep_for(std::chrono::seconds(5));//Wait client
-  //const cv::Mat one_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/one.png");
-  //paste_mat_img(one_img_src, img_src, 0, 0, width/3, height/ 3);
-  //const cv::Mat two_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/two.png");
-  //paste_mat_img(two_img_src, img_src, width/3 , 0, width/3 , height/ 3);
-  //const cv::Mat three_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/three.png");
-  //paste_mat_img(three_img_src, img_src, 2*width/3, 0, width/3, height/3);
 
-  //const cv::Mat four_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/four.png");
-  //paste_mat_img(four_img_src, img_src, 0, height/3, width/3, height/3);
-  //const cv::Mat five_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/five.jpg");
-  //paste_mat_img(five_img_src, img_src, width/3,height/3,width/3, height/ 3);
-  //const cv::Mat six_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/six.jpg");
-  //paste_mat_img(six_img_src, img_src, 2*width/3, height/3, width/3, height/ 3);
-  //
-  //const cv::Mat seven_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/seven.png");
-  //paste_mat_img(seven_img_src, img_src, 0, 2*height/3, width/3, height/3);
-  //const cv::Mat eight_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/eight.png");
-  //paste_mat_img(eight_img_src, img_src, width/3, 2*height/3, width/3, height/ 3);
-  //const cv::Mat nine_img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/nine.png");
-  //paste_mat_img(nine_img_src, img_src, 2*width/3,2*height/3,  width/3, height/3);
+  //const cv::Mat image_blank = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png");
 
-  const cv::Mat image_blank = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png");
-
-  //cv::Mat image_blank = cv::Mat::zeros(640, 480, CV_16U);
+  cv::Mat image_blank = cv::Mat::zeros(640, 480, CV_16U);
   //paste_mat_img(image_blank, img_src, 0, 0, width/3, height/ 3);
   //cv::imwrite("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png", image_blank);
 

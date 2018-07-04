@@ -101,9 +101,9 @@ int main(int argc, char** argv){
     }
   }
 
-  const cv::Mat image_blank = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png");
+  //const cv::Mat image_blank = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png");
 
-  //cv::Mat image_blank = cv::Mat::zeros(640, 480, CV_16U);
+  cv::Mat image_blank = cv::Mat::zeros(640, 480, CV_16U);
   //paste_mat_img(image_blank, img_src, 0, 0, width/3, height/ 3);
   //cv::imwrite("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png", image_blank);
 
