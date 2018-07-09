@@ -110,7 +110,7 @@ int main(int argc, char** argv){
 
   cv::Mat image_blank = cv::Mat::zeros(640, 480, CV_16U);
   //paste_mat_img(image_blank, img_src, 0, 0, width/3, height/ 3);
-  //cv::imwrite("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png", image_blank);
+  cv::imwrite("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png", image_blank);
 
   ROS_INFO("START %s","select_pin" );
   ROS_INFO("%d %d", width, height);

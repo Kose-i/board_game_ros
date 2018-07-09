@@ -1,6 +1,8 @@
 #include <vector>
 #include <string>
 
+#include <ros/ros.h>
+
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
@@ -44,10 +46,11 @@ int main(int argc, char** argv){
     //cv::putText(img, "OpenCV", cv::Point(50,50), face[0], 1.2, cv::Scalar(0,0,200), 2, CV_AA);
   }
 
+  cv::imwrite("/home/tamura-kosei/works/board_game_ros/src/quarto/img/temp.png", target_img);
+
   cv::namedWindow("target");
+  ROS_INFO("Push keyboard 'q'");
   while(cv::waitKey(1) != 'q') {
     cv::imshow("target", target_img);
   }
-  cv::imwrite("/home/tamura-kosei/works/board_game_ros/src/quarto/img/temp.png", target_img);
-  //cv::putText(target_img, )
 }
