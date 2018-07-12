@@ -93,7 +93,7 @@ int main(int argc, char **argv)
   ROS_INFO("Ready to select pin.");
 
   //ros::ServiceServer service = nh.advertiseService("select_pin", set_pin);
-  while(cv::waitKey(1) !=  'q') {
+  while (cv::waitKey(1) !=  'q') {
     ros::ServiceServer service = nh.advertiseService("select_pin", set_pin);
     cv::imshow("quarto_selectPIN_img_window", zero_img);
     //ros::spinOnce();

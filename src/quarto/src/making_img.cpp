@@ -18,13 +18,6 @@ struct Plot_data{
   cv::Scalar color;
 };
 
-int get_x(const int& a) {
-  return a%SIZE;
-}
-int get_y(const int& a) {
-  return a/SIZE;
-}
-
 int main(int argc, char** argv){
   cv::Mat target_img = cv::Mat::zeros(480, 640, CV_8UC3);
   /*
@@ -32,7 +25,7 @@ int main(int argc, char** argv){
   while(cv::waitKey(1) != 'q')cv::imshow("test", target_img);
   */
 
-  std::vector<Plot_data> pack_data(9);
+  std::vector<struct Plot_data> pack_data(9);
   for (int i {};i < 7;++i) {
     pack_data[i].output_c = '1' + i;
     pack_data[i].left_up = cv::Point(100*(i%3 + 1), 100*(i/3 + 1));
