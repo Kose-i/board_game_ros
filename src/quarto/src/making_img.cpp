@@ -20,6 +20,7 @@ struct Plot_data{
 
 int main(int argc, char** argv){
   cv::Mat target_img = cv::Mat::zeros(480, 640, CV_8UC3);
+  cv::imwrite("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png", target_img);
   /*
   cv::putText(target_img, "OpenCV", cv::Point(50, 50),cv::FONT_HERSHEY_SIMPLEX, 1.2, cv::Scalar(0, 0, 255), 2, CV_AA);
   while(cv::waitKey(1) != 'q')cv::imshow("test", target_img);
