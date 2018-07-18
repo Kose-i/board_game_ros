@@ -4,6 +4,8 @@
 #include <chrono>
 #include <thread>
 #include <bitset>
+#include <vector>
+#include <string>
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
@@ -11,8 +13,9 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 
-int width = 0;
-int height = 0;
+int width{};
+int height{};
+
 struct pos{
   int x;
   int y;
@@ -52,12 +55,12 @@ void paste_mat_img(cv::Mat src, cv::Mat dst, const struct pos* select) {
   paste_mat_img(src, dst, select->x, select->y, select->width ,select->height);
 }
 
-const std::string pin_box[] = {"first", "second", "third", "fourth","fifth","sixth","seventh","eighth","ninth"};
+const std::vector<std::string> pin_box = {"first", "second", "third", "fourth","fifth","sixth","seventh","eighth","ninth"};
 
 bool set_pin(quarto::bridge::Request &req,
          quarto::bridge::Response &res)
 {
-  //if(ans)res.str_answer = "ok";
+  if(ans)res.str_answer = "ok";
   //else res.str_answer = "ng";
   res.str_answer = "ng";
   ROS_INFO("throw from server");
@@ -71,7 +74,7 @@ void callback_mouse_select(int event, int x, int y, int flags, void*)
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
       ROS_INFO("touch");
-      ans = false;
+      ans = true;
     break;
   }
 }

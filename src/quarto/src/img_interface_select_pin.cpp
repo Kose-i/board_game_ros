@@ -87,12 +87,6 @@ int main(int argc, char** argv){
 
   ros::NodeHandle nh;
 
-  cv::VideoCapture cap(0);
-  if(!cap.isOpened()) {
-    ROS_INFO("Camera can't open");
-    return -1;
-  }
-
   cv::Mat img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/temp.png", cv::IMREAD_COLOR);
   width = img_src.size().width;
   height = img_src.size().height;
