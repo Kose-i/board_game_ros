@@ -25,12 +25,15 @@ struct pos{
 
 std::vector<struct pos> vec(9);
 
+int global_pin{};
+int before_pin{};
 void callback_mouse(int event, int x, int y, int flags, void*)
 {
-  //before_pin = global_pin;
+  before_pin = global_pin;
   switch(event){
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
+    global_pin = x/width + y*3/height;
       break;
   }
 }

@@ -1,5 +1,8 @@
-cmake_minimum_required(VERSION 2.8.3)
-project(quarto)
+cmake_minimum_required(VERSION 3.0.2)
+project(quarto
+  VERSION 1.0.0
+)
+
 set(CMAKE_CXX_STANDARD 11)
 
 find_package(catkin REQUIRED COMPONENTS
