@@ -26,30 +26,21 @@ struct pos{
 
 std::vector<struct pos> vec(9);
 
-int global_pin{};
-int before_pin{};
+int global_pin{9};
+int before_pin{9};
 
 void callback_mouse(int event, int x, int y, int flags, void*)
 {
-  switch(event){
+  switch (event) {
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
       ROS_INFO("x:%d y:%d",x, y);
-      global_pin = 0*x/ (width/3) + 3*y/ (heigh/3);
+      global_pin = x/ (width/3) + 3*(y/ (heigh/3));
       ROS_INFO("global_pin:%d before_pin:%d",global_pin, before_pin);
       break;
   }
 }
-/*
-void paste_mat_img(cv::Mat src, cv::Mat dst, int x, int y, int copy_width, int copy_heigh) {
-  std::cout << "check\n";
-  cv::Mat resized_img;
-  cv::resize(src, resized_img, cv::Size(copy_width, copy_heigh));
-  //cv::Mat roi(dst, cv::Rect(y, x, copy_heigh, copy_width));
-  cv::Mat roi= dst(cv::Rect(y, x, copy_heigh, copy_width));
-  resized_img.copyTo(roi);
-}
-*/
+
 // 画像を画像に貼り付ける関数
 void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const int& resize_width, const int& resize_heigh) {
 
@@ -63,26 +54,15 @@ void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const i
 	int v = (y >= 0) ? 0 : std::min(-y, resized_img.rows - 1);
 	int px = std::max(x, 0);
 	int py = std::max(y, 0);
-    //std::cout << x << ' ' << y << '\n';
-    //std::cout << w << ' ' << h << ' ' << u << ' ' << v << ' ' << px << ' ' << py << '\n';
 
 	cv::Mat roi_dst = dst(cv::Rect(px, py, w, h));
 	cv::Mat roi_resized = resized_img(cv::Rect(u, v, w, h));
 	roi_resized.copyTo(roi_dst);
 }
-/*
-struct pos{
-  int x;
-  int y;
-  int width;
-  int heigh;
-};
-*/
+
 void paste_mat_img(cv::Mat src, cv::Mat dst, const struct pos& select) {
   paste_mat_img(src, dst, select.x, select.y, select.width ,select.heigh);
 }
-
-const std::string pin_box[] = {"first_pos", "second_pos", "third_pos", "fourth_pos","fifth_pos","sixth_pos","seventh_pos","eighth_pos","ninth_pos"};
 
 int main(int argc, char** argv){
 
@@ -111,9 +91,7 @@ int main(int argc, char** argv){
     return -1;
   }
 
-  paste_mat_img(image_blank, img_src, 0, 0, width/3, heigh/ 3);
-
-  ROS_INFO("START %s","select_pin" );
+  ROS_INFO("START Test for img paste");
   ROS_INFO("%d %d", width, heigh);
 
   cv::namedWindow("img_src");
