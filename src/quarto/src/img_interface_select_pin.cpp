@@ -30,7 +30,7 @@ std::vector<struct pos> vec(9);
 
 void callback_mouse(int event, int x, int y, int flags, void*)
 {
-  //before_pin = global_pin;
+  before_pin = global_pin;
   switch(event){
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
@@ -38,16 +38,7 @@ void callback_mouse(int event, int x, int y, int flags, void*)
       break;
   }
 }
-/*
-void paste_mat_img(cv::Mat src, cv::Mat dst, int x, int y, int copy_width, int copy_height) {
-  std::cout << "check\n";
-  cv::Mat resized_img;
-  cv::resize(src, resized_img, cv::Size(copy_width, copy_height));
-  //cv::Mat roi(dst, cv::Rect(y, x, copy_height, copy_width));
-  cv::Mat roi= dst(cv::Rect(y, x, copy_height, copy_width));
-  resized_img.copyTo(roi);
-}
-*/
+
 // 画像を画像に貼り付ける関数
 void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const int& resize_width, const int& resize_height) {
 
@@ -68,15 +59,8 @@ void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const i
 	cv::Mat roi_resized = resized_img(cv::Rect(u, v, w, h));
 	roi_resized.copyTo(roi_dst);
 }
-/*
-struct pos{
-  int x;
-  int y;
-  int width;
-  int height;
-};
-*/
-void paste_mat_img(cv::Mat src, cv::Mat dst, const struct pos* select) {
+
+inline void paste_mat_img(cv::Mat src, cv::Mat dst, const struct pos* select) {
   paste_mat_img(src, dst, select->x, select->y, select->width ,select->height);
 }
 

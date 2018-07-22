@@ -34,7 +34,7 @@ void callback_mouse(int event, int x, int y, int flags, void*)
   switch (event) {
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
-      ROS_INFO("x:%d y:%d",x, y);
+      //ROS_INFO("x:%d y:%d",x, y);
       global_pin = x/ (width/3) + 3*(y/ (heigh/3));
       ROS_INFO("global_pin:%d before_pin:%d",global_pin, before_pin);
       break;
@@ -103,6 +103,7 @@ int main(int argc, char** argv){
     if (before_pin != global_pin && is_not_blank[global_pin]) {
       ROS_INFO("capture blank img");
       paste_mat_img(image_blank, img_src, vec[global_pin]);
+      is_not_blank[global_pin] = false;
       before_pin = global_pin;
     }
   }
