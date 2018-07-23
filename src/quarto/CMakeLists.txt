@@ -68,4 +68,5 @@ target_link_libraries(${PROJECT_NAME}_test_image
 )
 target_link_libraries(${PROJECT_NAME}_test_interface
   ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
 )
