@@ -46,6 +46,7 @@ add_executable(${PROJECT_NAME}_select_pin_server src/select_pin_server.cpp)
 add_executable(${PROJECT_NAME}_making_img src/making_img.cpp)
 
 add_executable(${PROJECT_NAME}_test_image src/test_img_draw.cpp)
+add_executable(${PROJECT_NAME}_test_interface src/test_img_interface_select_pin.cpp)
 
 target_link_libraries(${PROJECT_NAME}_select_pin_client
   ${catkin_LIBRARIES}
@@ -64,4 +65,7 @@ target_link_libraries(${PROJECT_NAME}_making_img
 target_link_libraries(${PROJECT_NAME}_test_image
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES}
+)
+target_link_libraries(${PROJECT_NAME}_test_interface
+  ${catkin_LIBRARIES}
 )

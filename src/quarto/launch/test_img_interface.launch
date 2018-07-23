@@ -1,0 +1,9 @@
+<launch>
+
+  <node pkg="quarto" type="quarto_select_pin_client" name="quarto_server" output="screen">
+  </node>
+
+  <node pkg="quarto" type="quarto_test_interface" name="quarto_client" output="screen">
+  </node>
+
+</launch>

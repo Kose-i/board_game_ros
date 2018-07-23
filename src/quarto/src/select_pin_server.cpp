@@ -60,9 +60,9 @@ const std::vector<std::string> pin_box = {"first", "second", "third", "fourth","
 bool set_pin(quarto::bridge::Request &req,
          quarto::bridge::Response &res)
 {
-  if(ans)res.str_answer = "ok";
-  else res.str_answer = "ng";
-  //res.str_answer = "ng";
+  //if(ans)res.str_answer = "ok";
+  //else res.str_answer = "ng";
+  res.str_answer = "ng";
   ROS_INFO("throw from server");
   ans = false;
   return true;

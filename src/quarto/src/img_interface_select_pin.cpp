@@ -72,6 +72,11 @@ int main(int argc, char** argv){
   ros::NodeHandle nh;
 
   cv::Mat img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/temp.png", cv::IMREAD_COLOR);
+  if(img_src.empty()){
+    ROS_INFO("can't open picture");
+    return -1;
+  }
+
   width = img_src.size().width;
   height = img_src.size().height;
   for (int i {};i < 3;++i) {
@@ -87,16 +92,9 @@ int main(int argc, char** argv){
   //const cv::Mat image_blank = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png");
 
   cv::Mat image_blank = cv::Mat::zeros(640, 480, CV_16U);
-  //paste_mat_img(image_blank, img_src, 0, 0, width/3, height/ 3);
-  cv::imwrite("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png", image_blank);
 
   ROS_INFO("START %s","select_pin" );
   ROS_INFO("%d %d", width, height);
-
-  if(img_src.empty()){
-    ROS_INFO("can't open picture");
-    return -1;
-  }
 
   cv::namedWindow("img_src");
   cv::setMouseCallback("img_src", &callback_mouse);
@@ -104,6 +102,7 @@ int main(int argc, char** argv){
   quarto::bridge srv;
   srv.request.str_pin = '0';// = pin_box[global_pin];
   ros::ServiceClient client = nh.serviceClient<quarto::bridge>("select_pin");
+  ROS_INFO("Start client");
 
   while(cv::waitKey(1) != 'q'){
     cv::imshow("img_src", img_src);
