@@ -58,6 +58,7 @@ void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const i
 	cv::Mat roi_dst = dst(cv::Rect(px, py, w, h));
 	cv::Mat roi_resized = resized_img(cv::Rect(u, v, w, h));
 	roi_resized.copyTo(roi_dst);
+  ROS_INFO("Pasted");
 }
 
 inline void paste_mat_img(cv::Mat src, cv::Mat dst, const struct pos* select) {
@@ -112,7 +113,7 @@ int main(int argc, char** argv){
         srv.request.str_pin = pin_box[global_pin];
         client.call(srv);
         ROS_INFO("THROW CLIENT");
-        //std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::this_thread::sleep_for(std::chrono::seconds(1));
         if(srv.response.str_answer == "ng") {
           ROS_INFO("CHECK NG WORD");
           continue;

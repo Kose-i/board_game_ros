@@ -60,9 +60,9 @@ const std::vector<std::string> pin_box = {"first", "second", "third", "fourth","
 bool set_pin(quarto::bridge::Request &req,
          quarto::bridge::Response &res)
 {
-  //if(ans)res.str_answer = "ok";
-  //else res.str_answer = "ng";
-  res.str_answer = "ng";
+  if(ans)res.str_answer = "ok";
+  else res.str_answer = "ng";
+  //res.str_answer = "ng";
   ROS_INFO("throw from server");
   ans = false;
   return true;
@@ -99,7 +99,7 @@ int main(int argc, char **argv)
   while (cv::waitKey(1) !=  'q') {
     //ros::ServiceServer service = nh.advertiseService("select_pin", set_pin);
     cv::imshow("quarto_selectPIN_img_window", zero_img);
-    //ros::spinOnce();
+    ros::spinOnce();
   }
 
   ros::spin();
