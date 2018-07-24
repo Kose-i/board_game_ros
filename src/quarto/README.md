@@ -9,7 +9,7 @@ img_interface_select_pin.cpp
 select_pin_server
   [target]img for touching and draw picture from picture
 
-making_img.cpp
+test_making_img.cpp
   making image needed
 test_img_draw.cpp
   testing image backside image

@@ -43,7 +43,7 @@ include_directories(
 add_executable(${PROJECT_NAME}_select_pin_client src/img_interface_select_pin.cpp)
 add_executable(${PROJECT_NAME}_select_pin_server src/select_pin_server.cpp)
 
-add_executable(${PROJECT_NAME}_making_img src/making_img.cpp)
+add_executable(${PROJECT_NAME}_making_img src/test_making_img.cpp)
 
 add_executable(${PROJECT_NAME}_test_image src/test_img_draw.cpp)
 add_executable(${PROJECT_NAME}_test_interface src/test_img_interface_select_pin.cpp)

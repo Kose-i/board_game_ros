@@ -8,10 +8,6 @@
 #include <string>
 
 #include <opencv2/opencv.hpp>
-#include <opencv2/highgui.hpp>
-#include <opencv2/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/imgcodecs.hpp>
 
 int width{};
 int height{};
@@ -26,33 +22,9 @@ struct pos{
 
 #include <iostream>
 
-void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const int& resize_width, const int& resize_height) {
-
-	cv::Mat resized_img;
-	cv::resize(src, resized_img, cv::Size(resize_width, resize_height));
-
-	if (x >= dst.cols || y >= dst.rows) return;
-	int w = (x >= 0) ? std::min(dst.cols - x, resized_img.cols) : std::min(std::max(resized_img.cols + x, 0), dst.cols);
-	int h = (y >= 0) ? std::min(dst.rows - y, resized_img.rows) : std::min(std::max(resized_img.rows + y, 0), dst.rows);
-	int u = (x >= 0) ? 0 : std::min(-x, resized_img.cols - 1);
-	int v = (y >= 0) ? 0 : std::min(-y, resized_img.rows - 1);
-	int px = std::max(x, 0);
-	int py = std::max(y, 0);
-    //std::cout << x << ' ' << y << '\n';
-    //std::cout << w << ' ' << h << ' ' << u << ' ' << v << ' ' << px << ' ' << py << '\n';
-
-	cv::Mat roi_dst = dst(cv::Rect(px, py, w, h));
-	cv::Mat roi_resized = resized_img(cv::Rect(u, v, w, h));
-	roi_resized.copyTo(roi_dst);
-}
-std::vector<struct pos> vec(9);
-
 bool ans = false;
 bool is_check(){
   return ans;
-}
-void paste_mat_img(cv::Mat src, cv::Mat dst, const struct pos* select) {
-  paste_mat_img(src, dst, select->x, select->y, select->width ,select->height);
 }
 
 const std::vector<std::string> pin_box = {"first", "second", "third", "fourth","fifth","sixth","seventh","eighth","ninth"};
@@ -97,7 +69,6 @@ int main(int argc, char **argv)
 
   ros::ServiceServer service = nh.advertiseService("select_pin", set_pin);
   while (cv::waitKey(1) !=  'q') {
-    //ros::ServiceServer service = nh.advertiseService("select_pin", set_pin);
     cv::imshow("quarto_selectPIN_img_window", zero_img);
     ros::spinOnce();
   }

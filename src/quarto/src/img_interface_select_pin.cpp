@@ -61,8 +61,8 @@ void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const i
   ROS_INFO("Pasted");
 }
 
-inline void paste_mat_img(cv::Mat src, cv::Mat dst, const struct pos* select) {
-  paste_mat_img(src, dst, select->x, select->y, select->width ,select->height);
+inline void paste_mat_img(cv::Mat src, cv::Mat dst, const struct pos& select) {
+  paste_mat_img(src, dst, select.x, select.y, select.width ,select.height);
 }
 
 const std::string pin_box[] = {"first", "second", "third", "fourth","fifth","sixth","seventh","eighth","ninth"};
@@ -89,8 +89,6 @@ int main(int argc, char** argv){
     }
   }
   std::this_thread::sleep_for(std::chrono::seconds(5));//Wait client
-
-  //const cv::Mat image_blank = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png");
 
   cv::Mat image_blank = cv::Mat::zeros(640, 480, CV_16U);
 
@@ -120,7 +118,7 @@ int main(int argc, char** argv){
         } else if (srv.response.str_answer == "ok") {
           ROS_INFO("CHECK OK WORD");
           before_pin = global_pin;
-          paste_mat_img(image_blank, img_src, &vec[global_pin]);
+          paste_mat_img(image_blank, img_src, vec[global_pin]);
           isexist.reset(global_pin);
         }
       }
