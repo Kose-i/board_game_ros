@@ -31,12 +31,13 @@ void callback_mouse(int event, int x, int y, int flags, void*)
   switch (event) {
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
-      //ROS_INFO("x:%d y:%d",x, y);
       quarto_img_data::global_pin = x/ (quarto_img_data::width/3) + 3*(y/ (quarto_img_data::heigh/3));
       ROS_INFO("global_pin:%d before_pin:%d",quarto_img_data::global_pin, quarto_img_data::before_pin);
       break;
   }
 }
+
+
 
 // 画像を画像に貼り付ける関数
 void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const int& resize_width, const int& resize_heigh) {

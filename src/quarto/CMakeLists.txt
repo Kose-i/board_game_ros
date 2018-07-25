@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(quarto
-  VERSION 1.0.0
+  VERSION 1.1.0
 )
 
 set(CMAKE_CXX_STANDARD 11)
@@ -13,7 +13,6 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package(OpenCV REQUIRED)
 include_directories( ${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
-
 
 
 ## Generate services in the 'srv' folder

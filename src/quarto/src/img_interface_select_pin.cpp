@@ -16,8 +16,8 @@
 int global_pin = 10;//parfect not exist
 int before_pin = global_pin;
 
-int width = 0;
-int height = 0;
+int width {};
+int height {};
 std::bitset<9> isexist("111111111");
 struct pos{
   int x;
@@ -52,16 +52,13 @@ void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const i
 	int v = (y >= 0) ? 0 : std::min(-y, resized_img.rows - 1);
 	int px = std::max(x, 0);
 	int py = std::max(y, 0);
-    //std::cout << x << ' ' << y << '\n';
-    //std::cout << w << ' ' << h << ' ' << u << ' ' << v << ' ' << px << ' ' << py << '\n';
 
 	cv::Mat roi_dst = dst(cv::Rect(px, py, w, h));
 	cv::Mat roi_resized = resized_img(cv::Rect(u, v, w, h));
 	roi_resized.copyTo(roi_dst);
-  ROS_INFO("Pasted");
 }
 
-inline void paste_mat_img(cv::Mat src, cv::Mat dst, const struct pos& select) {
+void paste_mat_img(cv::Mat& src, cv::Mat& dst, const struct pos& select) {
   paste_mat_img(src, dst, select.x, select.y, select.width ,select.height);
 }
 
@@ -119,6 +116,7 @@ int main(int argc, char** argv){
           ROS_INFO("CHECK OK WORD");
           before_pin = global_pin;
           paste_mat_img(image_blank, img_src, vec[global_pin]);
+          ROS_INFO("global pin:%d", global_pin);
           isexist.reset(global_pin);
         }
       }
