@@ -19,17 +19,6 @@ struct pos{
   int height;
 };
 
-
-bool set_pin(quarto::bridge::Request &req,
-         quarto::bridge::Response &res)
-{
-  //if(ans)res.str_answer = "ok";
-  //else res.str_answer = "ng";
-  res.str_answer = "ng";
-  ROS_INFO("throw from server");
-  return true;
-}
-
 int main(int argc, char **argv) {
 
   ros::init(argc, argv, "quarto_select_pin_server");
@@ -39,7 +28,6 @@ int main(int argc, char **argv) {
 
   std::this_thread::sleep_for(std::chrono::seconds(7));
 
-  ros::ServiceServer service = nh.advertiseService("select_pin", set_pin);
   cv::Mat img = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png");
   cv::namedWindow("test");
   while (true) {

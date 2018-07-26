@@ -114,10 +114,10 @@ int main(int argc, char** argv){
           continue;
         } else if (srv.response.str_answer == "ok") {
           ROS_INFO("CHECK OK WORD");
-          before_pin = global_pin;
           paste_mat_img(image_blank, img_src, vec[global_pin]);
           ROS_INFO("global pin:%d", global_pin);
           isexist.reset(global_pin);
+          before_pin = global_pin;
         }
       }
     }
