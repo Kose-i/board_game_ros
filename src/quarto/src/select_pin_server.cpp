@@ -9,6 +9,8 @@
 
 #include <opencv2/opencv.hpp>
 
+const std::string path_str{"/home/tamura-kosei/works/board_game_ros/src/quarto/img/"};
+
 int width{};
 int height{};
 
@@ -57,7 +59,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "quarto_select_pin_server");
   ros::NodeHandle nh;
   std::this_thread::sleep_for(std::chrono::seconds(2));
-  const cv::Mat zero_img = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png");
+  const cv::Mat zero_img = cv::imread("blank_img.png");
   if (zero_img.empty()){
     ROS_INFO("SELECT SERVER ERROR");
     return -1;

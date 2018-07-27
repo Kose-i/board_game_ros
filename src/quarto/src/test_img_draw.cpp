@@ -2,11 +2,14 @@
 #include <chrono>
 #include <bitset>
 #include <vector>
+#include <string>
 
 #include <ros/ros.h>
 #include <opencv2/opencv.hpp>
 
 #include "quarto/string_msgs.h"
+
+const std::string path_str{"/home/tamura-kosei/works/board_game_ros/src/quarto/img/"};
 
 struct pos{
   int x; int y;
@@ -68,7 +71,7 @@ int main(int argc, char** argv){
   ros::init(argc, argv, "quarto_select_pin_client");
   ros::NodeHandle nh;
 
-  cv::Mat img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/temp.png", cv::IMREAD_COLOR);
+  cv::Mat img_src = cv::imread(path_str+"temp.png", cv::IMREAD_COLOR);
   if (img_src.empty()) {
     ROS_INFO("cant open img_src");
   }
@@ -84,7 +87,7 @@ int main(int argc, char** argv){
     }
   }
 
-  const cv::Mat image_blank = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png");
+  const cv::Mat image_blank = cv::imread(path_str+"blank_img.png");
   if (image_blank.empty()) {
     ROS_INFO("cant open image_blank");
     return -1;

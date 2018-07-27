@@ -2,6 +2,7 @@
 #include <bitset>
 #include <thread>
 #include <chrono>
+#include <string>
 
 #include <ros/ros.h>
 
@@ -12,6 +13,8 @@
 #include <opencv2/imgcodecs.hpp>
 
 #include "quarto/bridge.h"
+
+const std::string path_str{"/home/tamura-kosei/works/board_game_ros/src/quarto/img/"};
 
 int global_pin = 10;//parfect not exist
 int before_pin = global_pin;
@@ -70,7 +73,7 @@ int main(int argc, char** argv){
 
   ros::NodeHandle nh;
 
-  cv::Mat img_src = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/temp.png", cv::IMREAD_COLOR);
+  cv::Mat img_src = cv::imread(path_str+"temp.png", cv::IMREAD_COLOR);
   if(img_src.empty()){
     ROS_INFO("can't open picture");
     return -1;
@@ -89,7 +92,7 @@ int main(int argc, char** argv){
   std::this_thread::sleep_for(std::chrono::seconds(5));//Wait client
 
   //cv::Mat image_blank = cv::Mat::zeros(640, 480, CV_16U);
-  cv::Mat image_blank = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png", cv::IMREAD_COLOR);
+  cv::Mat image_blank = cv::imread(path_str+"blank_img.png", cv::IMREAD_COLOR);
   if (image_blank.empty()) {
     ROS_ERROR("not open blank_img");
     return -1;

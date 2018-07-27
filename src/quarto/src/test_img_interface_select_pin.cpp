@@ -8,6 +8,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+const std::string path_str{"/home/tamura-kosei/works/board_game_ros/src/quarto/img/"};
 
 int width{};
 int height{};
@@ -28,11 +29,10 @@ int main(int argc, char **argv) {
 
   std::this_thread::sleep_for(std::chrono::seconds(7));
 
-  cv::Mat img = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png");
+  cv::Mat img = cv::imread(path_str+"blank_img.png");
   cv::namedWindow("test");
   while (true) {
     cv::imshow("test",img);
-    ros::spinOnce();
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
   }
   ros::spin();
