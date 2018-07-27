@@ -30,7 +30,6 @@ std::vector<struct pos> vec(9);
 
 void callback_mouse(int event, int x, int y, int flags, void*)
 {
-  before_pin = global_pin;
   switch(event){
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
@@ -41,6 +40,7 @@ void callback_mouse(int event, int x, int y, int flags, void*)
 
 // 画像を画像に貼り付ける関数
 void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const int& resize_width, const int& resize_height) {
+  ROS_INFO("%d %d %d %d", x,y,resize_width, resize_height);
 
 	cv::Mat resized_img;
 	cv::resize(src, resized_img, cv::Size(resize_width, resize_height));
@@ -52,13 +52,14 @@ void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const i
 	int v = (y >= 0) ? 0 : std::min(-y, resized_img.rows - 1);
 	int px = std::max(x, 0);
 	int py = std::max(y, 0);
+  ROS_INFO("%d %d %d %d px:%d py:%d", w, h, u, v, px, py);
 
 	cv::Mat roi_dst = dst(cv::Rect(px, py, w, h));
 	cv::Mat roi_resized = resized_img(cv::Rect(u, v, w, h));
 	roi_resized.copyTo(roi_dst);
 }
 
-void paste_mat_img(cv::Mat& src, cv::Mat& dst, const struct pos& select) {
+void paste_mat_img(cv::Mat src, cv::Mat dst, const struct pos& select) {
   paste_mat_img(src, dst, select.x, select.y, select.width ,select.height);
 }
 
@@ -87,7 +88,12 @@ int main(int argc, char** argv){
   }
   std::this_thread::sleep_for(std::chrono::seconds(5));//Wait client
 
-  cv::Mat image_blank = cv::Mat::zeros(640, 480, CV_16U);
+  //cv::Mat image_blank = cv::Mat::zeros(640, 480, CV_16U);
+  cv::Mat image_blank = cv::imread("/home/tamura-kosei/works/board_game_ros/src/quarto/img/blank_img.png", cv::IMREAD_COLOR);
+  if (image_blank.empty()) {
+    ROS_ERROR("not open blank_img");
+    return -1;
+  }
 
   ROS_INFO("START %s","select_pin" );
   ROS_INFO("%d %d", width, height);
@@ -102,6 +108,7 @@ int main(int argc, char** argv){
 
   while(cv::waitKey(1) != 'q'){
     cv::imshow("img_src", img_src);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
     if(global_pin != before_pin){
       if(0 <= global_pin && global_pin < 9 && isexist[global_pin] == true){
@@ -110,19 +117,16 @@ int main(int argc, char** argv){
         ROS_INFO("THROW CLIENT");
         std::this_thread::sleep_for(std::chrono::seconds(1));
         if(srv.response.str_answer == "ng") {
-          ROS_INFO("CHECK NG WORD");
           continue;
         } else if (srv.response.str_answer == "ok") {
-          ROS_INFO("CHECK OK WORD");
           paste_mat_img(image_blank, img_src, vec[global_pin]);
-          ROS_INFO("global pin:%d", global_pin);
+          ROS_INFO("global pin:%d", global_pin + 1);
           isexist.reset(global_pin);
           before_pin = global_pin;
         }
       }
     }
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(1));
   }
   ros::spin();
   return 0;

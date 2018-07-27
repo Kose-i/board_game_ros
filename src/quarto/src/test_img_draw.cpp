@@ -9,8 +9,7 @@
 #include "quarto/string_msgs.h"
 
 struct pos{
-  int x;
-  int y;
+  int x; int y;
   int width;
   int heigh;
 };
@@ -41,6 +40,7 @@ void callback_mouse(int event, int x, int y, int flags, void*)
 
 // 画像を画像に貼り付ける関数
 void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const int& resize_width, const int& resize_heigh) {
+  ROS_INFO("%d %d %d %d", x,y,resize_width, resize_heigh);
 
 	cv::Mat resized_img;
 	cv::resize(src, resized_img, cv::Size(resize_width, resize_heigh));
@@ -52,6 +52,7 @@ void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const i
 	int v = (y >= 0) ? 0 : std::min(-y, resized_img.rows - 1);
 	int px = std::max(x, 0);
 	int py = std::max(y, 0);
+  ROS_INFO("%d %d %d %d px:%d py:%d", w, h, u, v, px, py);
 
 	cv::Mat roi_dst = dst(cv::Rect(px, py, w, h));
 	cv::Mat roi_resized = resized_img(cv::Rect(u, v, w, h));
