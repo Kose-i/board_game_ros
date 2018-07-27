@@ -14,12 +14,12 @@ const std::string path_str{"/home/tamura-kosei/works/board_game_ros/src/quarto/i
 struct pos{
   int x; int y;
   int width;
-  int heigh;
+  int height;
 };
 
 namespace quarto_img_data{
-  int width = 0;
-  int heigh = 0;
+  int width {};
+  int height {};
   std::bitset<9> is_not_blank("111111111");
 
   std::vector<struct pos> vec(9);
@@ -33,7 +33,7 @@ void callback_mouse(int event, int x, int y, int flags, void*)
   switch (event) {
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
-      quarto_img_data::global_pin = x/ (quarto_img_data::width/3) + 3*(y/ (quarto_img_data::heigh/3));
+      quarto_img_data::global_pin = x/ (quarto_img_data::width/3) + 3*(y/ (quarto_img_data::height/3));
       ROS_INFO("global_pin:%d before_pin:%d",quarto_img_data::global_pin, quarto_img_data::before_pin);
       break;
   }
@@ -42,11 +42,11 @@ void callback_mouse(int event, int x, int y, int flags, void*)
 
 
 // 画像を画像に貼り付ける関数
-void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const int& resize_width, const int& resize_heigh) {
-  ROS_INFO("%d %d %d %d", x,y,resize_width, resize_heigh);
+void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const int& resize_width, const int& resize_height) {
+  ROS_INFO("%d %d %d %d", x,y,resize_width, resize_height);
 
 	cv::Mat resized_img;
-	cv::resize(src, resized_img, cv::Size(resize_width, resize_heigh));
+	cv::resize(src, resized_img, cv::Size(resize_width, resize_height));
 
 	if (x >= dst.cols || y >= dst.rows) return;
 	int w = (x >= 0) ? std::min(dst.cols - x, resized_img.cols) : std::min(std::max(resized_img.cols + x, 0), dst.cols);
@@ -63,7 +63,7 @@ void paste_mat_img(cv::Mat src, cv::Mat dst, const int& x, const int& y, const i
 }
 
 void paste_mat_img(cv::Mat src, cv::Mat dst, const struct pos& select) {
-  paste_mat_img(src, dst, select.x, select.y, select.width ,select.heigh);
+  paste_mat_img(src, dst, select.x, select.y, select.width ,select.height);
 }
 
 int main(int argc, char** argv){
@@ -77,13 +77,13 @@ int main(int argc, char** argv){
   }
 
   quarto_img_data::width = img_src.size().width;
-  quarto_img_data::heigh = img_src.size().height;
+  quarto_img_data::height = img_src.size().height;
   for (int i {};i < 3;++i) {
     for (int j {}; j < 3;++j) {
       quarto_img_data::vec[i*3 + j].x = (quarto_img_data::width* j) / 3;
-      quarto_img_data::vec[i*3 + j].y = (quarto_img_data::heigh*i) / 3;
+      quarto_img_data::vec[i*3 + j].y = (quarto_img_data::height*i) / 3;
       quarto_img_data::vec[i*3 + j].width =  quarto_img_data::width/3;
-      quarto_img_data::vec[i*3 + j].heigh = quarto_img_data::heigh / 3;
+      quarto_img_data::vec[i*3 + j].height = quarto_img_data::height / 3;
     }
   }
 
@@ -94,7 +94,7 @@ int main(int argc, char** argv){
   }
 
   ROS_INFO("START Test for img paste");
-  ROS_INFO("%d %d", quarto_img_data::width, quarto_img_data::heigh);
+  ROS_INFO("width:%d height:%d", quarto_img_data::width, quarto_img_data::height);
 
   cv::namedWindow("img_src");
   cv::setMouseCallback("img_src", &callback_mouse);

@@ -75,7 +75,13 @@ int main(int argc, char** argv){
 
   cv::Mat img_src = cv::imread(path_str+"temp.png", cv::IMREAD_COLOR);
   if(img_src.empty()){
-    ROS_INFO("can't open picture");
+    ROS_INFO("can't open temp_picture");
+    return -1;
+  }
+
+  cv::Mat img_highlight_src = cv::imread(path_str+"highlight_temp.png",cv::IMREAD_COLOR);
+  if (img_highlight_src.empty()) {
+    ROS_INFO("can't open highlight_img");
     return -1;
   }
 

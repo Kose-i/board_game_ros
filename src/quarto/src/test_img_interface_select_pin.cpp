@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
 
   ROS_INFO("Ready to select pin.");
 
-  std::this_thread::sleep_for(std::chrono::seconds(7));
+  std::this_thread::sleep_for(std::chrono::seconds(1));
 
   cv::Mat img = cv::imread(path_str+"blank_img.png");
   cv::namedWindow("test");
