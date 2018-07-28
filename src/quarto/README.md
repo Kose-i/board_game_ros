@@ -14,3 +14,8 @@ test_making_img.cpp
 test_img_draw.cpp
   testing image backside image
 
+
+setup
+  roslaunch quarto making_img.launch
+test
+  roslaunch quarto quarto.launch

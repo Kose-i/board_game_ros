@@ -1,3 +1,4 @@
 # board_game_ros
 
-I studied ros-tutorial.
+This is board game with using ROS.
+I studied ROS for this challenge.
