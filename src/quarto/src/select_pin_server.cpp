@@ -59,7 +59,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "quarto_select_pin_server");
   ros::NodeHandle nh;
   std::this_thread::sleep_for(std::chrono::seconds(2));
-  const cv::Mat zero_img = cv::imread("blank_img.png");
+  const cv::Mat zero_img = cv::imread(path_str+"blank_img.png");
   if (zero_img.empty()){
     ROS_INFO("SELECT SERVER ERROR");
     return -1;
