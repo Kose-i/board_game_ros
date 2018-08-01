@@ -24,9 +24,8 @@ struct pos{
 
 #include <iostream>
 
-bool ans = false;
-bool is_check(){
-  return ans;
+namespace is_check_touch_img{
+  bool ans = false;
 }
 
 const std::vector<std::string> pin_box = {"first", "second", "third", "fourth","fifth","sixth","seventh","eighth","ninth"};
@@ -34,11 +33,11 @@ const std::vector<std::string> pin_box = {"first", "second", "third", "fourth","
 bool set_pin(quarto::bridge::Request &req,
          quarto::bridge::Response &res)
 {
-  if(ans)res.str_answer = "ok";
+  if(is_check_touch_img::ans)res.str_answer = "ok";
   else res.str_answer = "ng";
   //res.str_answer = "ng";
   ROS_INFO("throw from server");
-  ans = false;
+  is_check_touch_img::ans = false;
   return true;
 }
 
@@ -48,14 +47,14 @@ void callback_mouse_select(int event, int x, int y, int flags, void*)
     case CV_EVENT_LBUTTONDOWN:
     case CV_EVENT_RBUTTONDOWN:
       ROS_INFO("touch");
-      ans = true;
+      is_check_touch_img::ans = true;
     break;
   }
 }
 int main(int argc, char **argv)
 {
   //test
-  ans = true;
+  is_check_touch_img::ans = true;
   ros::init(argc, argv, "quarto_select_pin_server");
   ros::NodeHandle nh;
   std::this_thread::sleep_for(std::chrono::seconds(2));

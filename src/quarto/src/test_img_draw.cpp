@@ -12,7 +12,7 @@
 const std::string path_str{"/home/tamura-kosei/works/board_game_ros/src/quarto/img/"};
 
 struct pos{
-  int x; int y;
+  int x, y;
   int width;
   int height;
 };
