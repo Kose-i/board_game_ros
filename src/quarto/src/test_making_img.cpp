@@ -1,5 +1,6 @@
 #include <vector>
 #include <string>
+
 const std::string path_str{"/home/tamura-kosei/works/board_game_ros/src/quarto/img/"};
 
 #include <ros/ros.h>
