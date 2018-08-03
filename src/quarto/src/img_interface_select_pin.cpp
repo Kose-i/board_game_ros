@@ -15,13 +15,20 @@
 #include "quarto/bridge.h"
 
 const std::string path_str{"/home/tamura-kosei/works/board_game_ros/src/quarto/img/"};
+constexpr int target_size{9};
 
 int global_pin = 10;//parfect not exist
 int before_pin = global_pin;
 
 int width {};
 int height {};
-std::bitset<9> isexist("111111111");
+std::bitset<target_size> isexist;
+void initialize_isexist() {
+  for (int i {};i < target_size;++i) {
+    isexist.set(i);
+  }
+}
+
 struct pos{
   int x;
   int y;
@@ -29,7 +36,7 @@ struct pos{
   int height;
 };
 
-std::vector<struct pos> vec(9);
+std::vector<struct pos> vec(target_size);
 
 void callback_mouse(int event, int x, int y, int flags, void*)
 {
@@ -114,13 +121,14 @@ int main(int argc, char** argv){
   srv.request.str_pin = '0';// = pin_box[global_pin];
   ros::ServiceClient client = nh.serviceClient<quarto::bridge>("select_pin");
   ROS_INFO("Start client");
+  initialize_isexist();
 
   while(cv::waitKey(1) != 'q'){
     cv::imshow("pin_img_src", pin_img_src);
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
     if(global_pin != before_pin){
-      if(0 <= global_pin && global_pin < 9 && isexist[global_pin] == true){
+      if(0 <= global_pin && global_pin < target_size && isexist[global_pin] == true){
         srv.request.str_pin = pin_box[global_pin];
         client.call(srv);
         ROS_INFO("THROW CLIENT");
