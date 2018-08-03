@@ -58,8 +58,8 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "quarto_select_pin_server");
   ros::NodeHandle nh;
   std::this_thread::sleep_for(std::chrono::seconds(2));
-  const cv::Mat zero_img = cv::imread(path_str+"blank_img.png");
-  if (zero_img.empty()){
+  const cv::Mat board_img = cv::imread(path_str+"board_img.png");
+  if (board_img.empty()){
     ROS_INFO("SELECT SERVER ERROR");
     return -1;
   }
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 
   ros::ServiceServer service = nh.advertiseService("select_pin", set_pin);
   while (cv::waitKey(1) !=  'q') {
-    cv::imshow("quarto_selectPIN_img_window", zero_img);
+    cv::imshow("quarto_selectPIN_img_window", board_img);
     ros::spinOnce();
   }
 

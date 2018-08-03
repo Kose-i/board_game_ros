@@ -29,13 +29,12 @@ int main(int argc, char **argv) {
 
   std::this_thread::sleep_for(std::chrono::seconds(1));
 
-  cv::Mat img = cv::imread(path_str+"blank_img.png");
+  const cv::Mat img = cv::imread(path_str+"blank_img.png");
   cv::namedWindow("test");
-  while (true) {
-    cv::imshow("test",img);
-    std::this_thread::sleep_for(std::chrono::milliseconds(1));
-  }
-  ros::spin();
+  cv::imshow("test",img);
+  while(cv::waitKey(1) != 'q'){}
+  
+  //ros::spin();
 
   return 0;
 }
