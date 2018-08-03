@@ -73,20 +73,20 @@ int main(int argc, char** argv){
 
   ros::NodeHandle nh;
 
-  cv::Mat img_src = cv::imread(path_str+"temp.png", cv::IMREAD_COLOR);
-  if(img_src.empty()){
+  cv::Mat pin_img_src = cv::imread(path_str+"pin_img.png", cv::IMREAD_COLOR);
+  if(pin_img_src.empty()){
     ROS_INFO("can't open temp_picture");
     return -1;
   }
 
-  cv::Mat img_highlight_src = cv::imread(path_str+"highlight_temp.png",cv::IMREAD_COLOR);
-  if (img_highlight_src.empty()) {
+  cv::Mat color_pin_img_src = cv::imread(path_str+"coloring_pin_img.png",cv::IMREAD_COLOR);
+  if (color_pin_img_src.empty()) {
     ROS_INFO("can't open highlight_img");
     return -1;
   }
 
-  width = img_src.size().width;
-  height = img_src.size().height;
+  width = pin_img_src.size().width;
+  height = pin_img_src.size().height;
   for (int i {};i < 3;++i) {
     for (int j {}; j < 3;++j) {
       vec[i*3 + j].x = (width* j) / 3;
@@ -107,8 +107,8 @@ int main(int argc, char** argv){
   ROS_INFO("START %s","select_pin" );
   ROS_INFO("%d %d", width, height);
 
-  cv::namedWindow("img_src");
-  cv::setMouseCallback("img_src", &callback_mouse);
+  cv::namedWindow("pin_img_src");
+  cv::setMouseCallback("pin_img_src", &callback_mouse);
 
   quarto::bridge srv;
   srv.request.str_pin = '0';// = pin_box[global_pin];
@@ -116,7 +116,7 @@ int main(int argc, char** argv){
   ROS_INFO("Start client");
 
   while(cv::waitKey(1) != 'q'){
-    cv::imshow("img_src", img_src);
+    cv::imshow("pin_img_src", pin_img_src);
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
     if(global_pin != before_pin){
@@ -128,7 +128,7 @@ int main(int argc, char** argv){
         if(srv.response.str_answer == "ng") {
           continue;
         } else if (srv.response.str_answer == "ok") {
-          paste_mat_img(image_blank, img_src, vec[global_pin]);
+          paste_mat_img(image_blank, pin_img_src, vec[global_pin]);
           ROS_INFO("global pin:%d", global_pin + 1);
           isexist.reset(global_pin);
           before_pin = global_pin;

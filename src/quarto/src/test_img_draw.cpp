@@ -71,7 +71,7 @@ int main(int argc, char** argv){
   ros::init(argc, argv, "quarto_select_pin_client");
   ros::NodeHandle nh;
 
-  cv::Mat img_src = cv::imread(path_str+"temp.png", cv::IMREAD_COLOR);
+  cv::Mat img_src = cv::imread(path_str+"pin_img.png", cv::IMREAD_COLOR);
   if (img_src.empty()) {
     ROS_INFO("cant open img_src");
   }
