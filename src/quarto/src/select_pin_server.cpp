@@ -22,7 +22,7 @@ struct pos{
 };
 
 
-#include <iostream>
+//#include <iostream>
 
 namespace is_check_touch_img{
   bool ans = false;
