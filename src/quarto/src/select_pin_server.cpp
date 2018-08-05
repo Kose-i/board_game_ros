@@ -27,6 +27,9 @@ struct pos{
 namespace is_check_touch_img{
   bool ans = false;
 }
+namespace window_name{
+  const std::string board_name{"board"};
+}
 
 const std::vector<std::string> pin_box = {"first", "second", "third", "fourth","fifth","sixth","seventh","eighth","ninth"};
 
@@ -63,14 +66,14 @@ int main(int argc, char **argv)
     ROS_INFO("SELECT SERVER ERROR");
     return -1;
   }
-  cv::namedWindow("quarto_selectPIN_img_window");
-  cv::setMouseCallback("quarto_selectPIN_img_window", &callback_mouse_select);
+  cv::namedWindow(window_name::board_name);
+  cv::setMouseCallback(window_name::board_name, &callback_mouse_select);
 
   ROS_INFO("Ready to select pin.");
 
   ros::ServiceServer service = nh.advertiseService("select_pin", set_pin);
   while (cv::waitKey(1) !=  'q') {
-    cv::imshow("quarto_selectPIN_img_window", board_img);
+    cv::imshow(window_name::board_name, board_img);
     ros::spinOnce();
   }
 

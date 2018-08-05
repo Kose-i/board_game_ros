@@ -22,7 +22,12 @@ int before_pin = global_pin;
 
 int width {};
 int height {};
+std::vector<struct pos> vec(target_size);
 std::bitset<target_size> isexist;
+namespace window_name{
+  const std::string board_name{"board_img"};
+  const std::string pin_img{"pin_img"};
+}
 void initialize_isexist() {
   for (int i {};i < target_size;++i) {
     isexist.set(i);
@@ -36,7 +41,6 @@ struct pos{
   int height;
 };
 
-std::vector<struct pos> vec(target_size);
 
 void callback_mouse(int event, int x, int y, int flags, void*)
 {
@@ -77,7 +81,6 @@ const std::string pin_box[] = {"first", "second", "third", "fourth","fifth","six
 
 int main(int argc, char** argv){
   ros::init(argc, argv, "quarto_select_pin_client");
-
   ros::NodeHandle nh;
 
   cv::Mat pin_img_src = cv::imread(path_str+"pin_img.png", cv::IMREAD_COLOR);
@@ -92,8 +95,18 @@ int main(int argc, char** argv){
     return -1;
   }
 
+  cv::Mat image_blank = cv::imread(path_str+"blank_img.png", cv::IMREAD_COLOR);
+  if (image_blank.empty()) {
+    ROS_ERROR("not open blank_img");
+    return -1;
+  }
+
+  ROS_INFO("START %s","select_pin" );
+
   width = pin_img_src.size().width;
   height = pin_img_src.size().height;
+  ROS_INFO("width: %d height: %d", width, height);
+
   for (int i {};i < 3;++i) {
     for (int j {}; j < 3;++j) {
       vec[i*3 + j].x = (width* j) / 3;
@@ -102,20 +115,7 @@ int main(int argc, char** argv){
       vec[i*3 + j].height = height / 3;
     }
   }
-  std::this_thread::sleep_for(std::chrono::seconds(5));//Wait client
 
-  //cv::Mat image_blank = cv::Mat::zeros(640, 480, CV_16U);
-  cv::Mat image_blank = cv::imread(path_str+"blank_img.png", cv::IMREAD_COLOR);
-  if (image_blank.empty()) {
-    ROS_ERROR("not open blank_img");
-    return -1;
-  }
-
-  ROS_INFO("START %s","select_pin" );
-  ROS_INFO("%d %d", width, height);
-
-  cv::namedWindow("pin_img_src");
-  cv::setMouseCallback("pin_img_src", &callback_mouse);
 
   quarto::bridge srv;
   srv.request.str_pin = '0';// = pin_box[global_pin];
@@ -123,8 +123,11 @@ int main(int argc, char** argv){
   ROS_INFO("Start client");
   initialize_isexist();
 
+  cv::namedWindow(window_name::pin_img);
+  cv::setMouseCallback(window_name::pin_img, &callback_mouse);
+
   while(cv::waitKey(1) != 'q'){
-    cv::imshow("pin_img_src", pin_img_src);
+    cv::imshow(window_name::pin_img, pin_img_src);
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
     if(global_pin != before_pin){
