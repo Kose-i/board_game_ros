@@ -27,6 +27,9 @@ namespace quarto_img_data{
   int global_pin{9};
   int before_pin{9};
 }
+namespace window_name{
+  const std::string img_src_name{"img_src"};
+}
 
 void callback_mouse(int event, int x, int y, int flags, void*)
 {
@@ -96,11 +99,11 @@ int main(int argc, char** argv){
   ROS_INFO("START Test for img paste");
   ROS_INFO("width:%d height:%d", quarto_img_data::width, quarto_img_data::height);
 
-  cv::namedWindow("img_src");
-  cv::setMouseCallback("img_src", &callback_mouse);
+  cv::namedWindow(window_name::img_src_name);
+  cv::setMouseCallback(window_name::img_src_name, &callback_mouse);
 
   while(cv::waitKey(1) != 'q'){
-    cv::imshow("img_src", img_src);
+    cv::imshow(window_name::img_src_name, img_src);
     std::this_thread::sleep_for(std::chrono::milliseconds(1));
     if (quarto_img_data::before_pin != quarto_img_data::global_pin && quarto_img_data::is_not_blank[quarto_img_data::global_pin]) {
       ROS_INFO("capture blank img");
