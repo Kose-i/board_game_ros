@@ -54,6 +54,7 @@ void callback_mouse_select(int event, int x, int y, int flags, void*)
     break;
   }
 }
+
 int main(int argc, char **argv)
 {
   //test
