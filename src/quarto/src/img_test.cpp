@@ -1,8 +1,6 @@
-#ifndef img_hpp
-#define img_hpp
+#include "img_test.hpp"
 
-#include "opencv2/opencv.hpp"
-
+/*
 class Img_put{
   public:
     Img_put();
@@ -15,5 +13,9 @@ class Img_put{
   private:
     cv::Mat img_src;
     void draw_img();
-}
-#endif
+}*/
+
+Img_put::img_put(){}
+virtual Img_put::~Img_put(){}
+void draw_img_on_img(){}
+cv::Mat show_img_src()const{}

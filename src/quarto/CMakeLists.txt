@@ -12,6 +12,9 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(OpenCV REQUIRED)
 include_directories(include ${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
 
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
 
 ## Generate services in the 'srv' folder
 add_service_files(
@@ -30,12 +33,7 @@ generate_messages(
   std_msgs  # Or other packages containing msgs
 )
 
-catkin_package(
-)
-
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
+catkin_package()
 
 add_executable(${PROJECT_NAME}_select_pin_client src/img_interface_select_pin.cpp)
 add_executable(${PROJECT_NAME}_select_pin_server src/select_pin_server.cpp)
