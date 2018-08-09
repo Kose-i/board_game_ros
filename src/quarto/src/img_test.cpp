@@ -1,5 +1,4 @@
-#include "img_test.hpp"
-
+#include "img_test.hpp" 
 /*
 class Img_put{
   public:
@@ -15,7 +14,9 @@ class Img_put{
     void draw_img();
 }*/
 
-Img_put::img_put(){}
-virtual Img_put::~Img_put(){}
+Img_put::Img_put(){}
+Img_put::~Img_put(){}
 void draw_img_on_img(){}
-cv::Mat show_img_src()const{}
+const cv::Mat Img_put::show_img_src()const{
+  return static_cast<const cv::Mat>(img_src);
+}
