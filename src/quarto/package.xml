@@ -4,7 +4,7 @@
   <version>1.2.0</version>
   <description>The quarto package</description>
 
-  <maintainer email="tamura-kosei@mail.kyutech.jp">Kose-i</maintainer>
+  <maintainer email="tamura.kosei@mail.kyutech.jp">Kose-i</maintainer>
   <author email="tamura.kosei905@mail.kyutech.jp">Tamura Kosei</author>
 
   <license>BSD</license>
