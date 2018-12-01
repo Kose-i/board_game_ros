@@ -14,9 +14,9 @@ class Img_put{
     void draw_img();
 }*/
 
-Img_put::Img_put(){}
-Img_put::~Img_put(){}
-void draw_img_on_img(){}
+Img_put::Img_put(){};
+Img_put::~Img_put(){};
+void draw_img_on_img(){};
 const cv::Mat Img_put::show_img_src()const{
   return static_cast<const cv::Mat>(img_src);
-}
+};
