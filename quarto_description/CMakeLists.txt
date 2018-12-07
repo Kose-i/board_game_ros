@@ -4,29 +4,28 @@ project(quarto_description)
 set(CMAKE_CXX_STANDARD 11)
 
 find_package(catkin REQUIRED COMPONENTS
+  OpenCV
   roscpp
-  std_msgs
-  message_generation
+  quarto_msg_generator
 )
 
-find_package(OpenCV REQUIRED)
-include_directories(include ${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
-
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-  include
+include_directories(include 
+    ${catkin_INCLUDE_DIRS}
+    ${OpenCV_INCLUDE_DIRS}
 )
 
+catkin_package(
+  CATKIN_DEPENDS
+  quarto_msg_generator
+)
 
-catkin_package()
+add_executable(${PROJECT_NAME}_lib src/img_test.cpp src/test.cpp)
+add_dependencies(${PROJECT_NAME}_lib ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME}_lib
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+)
 
-#add_executable(${PROJECT_NAME}_lib src/img_test.cpp src/test.cpp)
-#
-#target_link_libraries(${PROJECT_NAME}_lib
-#  ${catkin_LIBRARIES}
-#  ${OpenCV_LIBRARIES}
-#  include
-#)
 #
 #add_executable(${PROJECT_NAME}_select_pin_client src/img_interface_select_pin.cpp)
 #add_executable(${PROJECT_NAME}_select_pin_server src/select_pin_server.cpp)
