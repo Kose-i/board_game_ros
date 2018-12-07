@@ -19,9 +19,9 @@ catkin_package(
   quarto_msg_generator
 )
 
-add_executable(quarto_test src/img_test.cpp src/test.cpp)
-add_dependencies(quarto_test ${catkin_EXPORTED_TARGETS})
-target_link_libraries(quarto_test
+add_executable(quarto_making_img src/making_img.cpp)
+add_dependencies(quarto_making_img ${catkin_EXPORTED_TARGETS})
+target_link_libraries(quarto_making_img
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES}
 )

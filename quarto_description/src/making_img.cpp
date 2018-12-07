@@ -10,7 +10,7 @@
 #include <opencv2/imgcodecs.hpp>
 
 namespace data{
-  const std::string path_str{"/home/tamura-kosei/works/board_game_ros/src/quarto/img/"};
+  std::string path_str{"/home/tamura-kosei/"};
   constexpr int target_size{9};
 }
 
@@ -29,12 +29,21 @@ namespace making_img{
 
 int main(int argc, char** argv){
 
+  std::string pt_str;
+  ros::init(argc, argv, "param file-path");
+  ros::NodeHandle nh_;
+  nh_.getParam("/img_file_path", data::path_str);
+  nh_.getParam("/img_file_path", pt_str);
+
+std::cout << "pt_str : " << pt_str << '\n';
+  std::cout << data::path_str << '\n';
   making_img::draw_blank_img();
   making_img::draw_board_img();
   making_img::draw_pin_img();
   making_img::draw_coloring_pin_img();
 
   ROS_INFO("Finish make img");
+  ros::spin();
 }
 
 void making_img::draw_blank_img(){
