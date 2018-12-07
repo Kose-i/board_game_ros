@@ -19,14 +19,13 @@ catkin_package(
   quarto_msg_generator
 )
 
-add_executable(${PROJECT_NAME}_lib src/img_test.cpp src/test.cpp)
-add_dependencies(${PROJECT_NAME}_lib ${catkin_EXPORTED_TARGETS})
-target_link_libraries(${PROJECT_NAME}_lib
+add_executable(quarto_test src/img_test.cpp src/test.cpp)
+add_dependencies(quarto_test ${catkin_EXPORTED_TARGETS})
+target_link_libraries(quarto_test
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES}
 )
 
-#
 #add_executable(${PROJECT_NAME}_select_pin_client src/img_interface_select_pin.cpp)
 #add_executable(${PROJECT_NAME}_select_pin_server src/select_pin_server.cpp)
 #

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>quarto_launcher</name>
+  <version>0.0.0</version>
+  <description>The quarto package</description>
+
+  <maintainer email="tamura.kosei905@mail.kyutech.jp">tamura-kosei</maintainer>
+  <author email="tamura.kosei905@mail.kyutech.jp">tamura-kosei</author>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <export></export>
+
+</package>

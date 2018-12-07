@@ -1,6 +1,0 @@
-<launch>
-
-  <node pkg="quarto" type="quarto_test_image" name="quarto_test" output="screen">
-  </node>
-
-</launch>
