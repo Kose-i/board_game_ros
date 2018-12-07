@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>quarto</name>
+  <name>quarto_description</name>
   <version>1.2.0</version>
   <description>The quarto package</description>
 

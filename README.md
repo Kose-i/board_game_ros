@@ -23,12 +23,8 @@ test_img_draw.cpp
 
   testing image backside image
 
+## How to Use
 
-setup
+`roslaunch quarto making_img.launch`
 
-  roslaunch quarto making_img.launch
-
-test
-
-  roslaunch quarto quarto.launch
-
+`roslaunch quarto quarto.launch`
