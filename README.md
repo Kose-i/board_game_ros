@@ -8,5 +8,6 @@
 
 `roslaunch quarto_launcher`
 
-[image]:(quarto_description/config/pin_img.png)
+![pin_img]:(quarto_description/config/pin_img.png)
+
 [comment]:[image]:(../quarto_description/config/)
