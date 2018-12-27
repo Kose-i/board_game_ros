@@ -10,7 +10,7 @@
 #include <opencv2/imgcodecs.hpp>
 
 namespace data{
-  std::string path_str{"/home/tamura-kosei/"};
+  std::string path_str;
   constexpr int target_size{9};
 }
 
@@ -32,7 +32,7 @@ int main(int argc, char** argv){
   ros::NodeHandle nh_;
 
   nh_.getParam("img_file_path", data::path_str);
-  std::cout << data::path_str << '\n';
+  ROS_INFO("%s", data::path_str);
 
   making_img::draw_blank_img();
   making_img::draw_board_img();
