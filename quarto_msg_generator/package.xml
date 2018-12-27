@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>quarto_msg_generator</name>
-  <version>1.2.0</version>
+  <version>1.3.0</version>
   <description>The quarto package</description>
 
-  <maintainer email="tamura.kosei@mail.kyutech.jp">Kose-i</maintainer>
+  <maintainer email="tamura.kosei905@mail.kyutech.jp">Kose-i</maintainer>
   <author email="tamura.kosei905@mail.kyutech.jp">Tamura Kosei</author>
 
   <license>BSD</license>

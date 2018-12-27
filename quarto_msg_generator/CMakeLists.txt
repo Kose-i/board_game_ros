@@ -9,11 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
-include_directories(include ${catkin_INCLUDE_DIRS})
-
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
+#include_directories(${catkin_INCLUDE_DIRS})
 
 add_service_files(
   FILES
