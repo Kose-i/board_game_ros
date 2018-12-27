@@ -24,23 +24,19 @@ namespace making_img{
   void draw_board_img();
   void draw_number(cv::Mat, cv::Scalar);
   void draw_pin_img();
-  void draw_coloring_pin_img();
 }
 
 int main(int argc, char** argv){
 
-  std::string pt_str;
   ros::init(argc, argv, "param file-path");
   ros::NodeHandle nh_;
-  nh_.getParam("/img_file_path", data::path_str);
-  nh_.getParam("/img_file_path", pt_str);
 
-std::cout << "pt_str : " << pt_str << '\n';
+  nh_.getParam("img_file_path", data::path_str);
   std::cout << data::path_str << '\n';
+
   making_img::draw_blank_img();
   making_img::draw_board_img();
   making_img::draw_pin_img();
-  making_img::draw_coloring_pin_img();
 
   ROS_INFO("Finish make img");
   ros::spin();
@@ -71,10 +67,3 @@ void making_img::draw_pin_img(){
   making_img::draw_number(pin_img,white_color);
   cv::imwrite(data::path_str+"pin_img.png", pin_img);
 }
-void making_img::draw_coloring_pin_img(){
-  cv::Mat coloring_pin_img = cv::Mat::zeros(640, 480, CV_8UC3);
-  cv::Scalar yellow_color(0, 255,255);//yellow
-  making_img::draw_number(coloring_pin_img, yellow_color);
-  cv::imwrite(data::path_str+"coloring_pin_img.png", coloring_pin_img);
-}
-

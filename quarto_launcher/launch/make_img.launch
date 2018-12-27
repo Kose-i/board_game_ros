@@ -1,7 +1,7 @@
 <launch>
 
-  <param name="/img_file_path" value="$(find quarto_description)/config/"/>
-  <node pkg="quarto_description" type="quarto_making_img" name="test" output="screen">
+  <param name="img_file_path" value="$(find quarto_description)/config/img/"/>
+  <node pkg="quarto_making_img" type="quarto_making_img_node" name="test" output="screen">
   </node>
 
 </launch>

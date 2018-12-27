@@ -15,8 +15,8 @@ include_directories(
   ${OpenCV_INCLUDE_DIRS}
 )
 
-add_executable(${PROJECT_NAME}_node src/quarto_making_img.cpp)
-target_link_libraries(${PROJECT_NAME}_node
+add_executable(quarto_making_img_node src/quarto_making_img.cpp)
+target_link_libraries(quarto_making_img_node
   ${OpenCV_LIBRARIES}
   ${catkin_LIBRARIES}
 )
