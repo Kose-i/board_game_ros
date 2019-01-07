@@ -34,7 +34,7 @@ int main(int argc, char** argv){
   ros::NodeHandle nh_;
 
   nh_.getParam("img_file_path", data::path_str);
-  ROS_INFO("%s", data::path_str);
+  ROS_INFO("%s", data::path_str.c_str());
 
   making_img::draw_blank_img();
   making_img::draw_board_img();
