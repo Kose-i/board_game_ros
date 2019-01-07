@@ -9,6 +9,8 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 
+#include "quarto_making_img.hpp"
+
 namespace data{
   std::string path_str;
   constexpr int target_size{9};
