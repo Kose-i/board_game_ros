@@ -8,6 +8,6 @@
 
 `roslaunch quarto_launcher`
 
-![pin_img](https://github.com/Kose-i/quarto_ros/blob/master/quarto_description/config/pin_img.png)
+![pin_img](quarto_description/config/img/pin_img.png)
 
-[comment]:[image]:(../quarto_description/config/)
+[comment]:[image]:(./quarto_description/config/img/pin_img.png)
