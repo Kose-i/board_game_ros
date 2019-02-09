@@ -48,10 +48,12 @@ void making_img::draw_blank_img(){
   cv::Mat blank_img = cv::Mat::zeros(640, 480, CV_8UC3);
   cv::imwrite(data::path_str+"blank_img.png", blank_img);
 }
+
 void making_img::draw_board_img(){
   cv::Mat board_img = cv::Mat::zeros(640, 480, CV_8UC3);
   cv::imwrite(data::path_str+"board_img.png",board_img);
 }
+
 void making_img::draw_number(cv::Mat target_img, cv::Scalar color) {
   std::vector<struct Plot_data> pack_data(data::target_size);
   for (int i {};i < data::target_size;++i) {
@@ -63,6 +65,7 @@ void making_img::draw_number(cv::Mat target_img, cv::Scalar color) {
     cv::putText(target_img, e.output_c, e.left_up, cv::FONT_HERSHEY_SIMPLEX, 1.2, color, 2, CV_AA);
   }
 }
+
 void making_img::draw_pin_img(){
   cv::Mat pin_img = cv::Mat::zeros(640, 480, CV_8UC3);
   cv::Scalar white_color(255,255,255);//white
